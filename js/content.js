@@ -72,17 +72,17 @@ const CONTENT = {
   ],
 
   projects: [
-    { title: "NewsTrace", tag: "Information Retrieval · NLP", color: "#ff4d6d",
-      desc: "Built a news retrieval system that groups coverage of the same event, detects syndicated duplicates, and links summaries to their sources. Compared embedding compression and approximate search on live news and a 300-query human-judged benchmark.",
+    { title: "News Retrieval System", tag: "Information Retrieval · NLP", color: "#ff4d6d",
+      desc: "Built a system that groups news coverage by event, detects duplicate reporting, and links summaries to their sources. Evaluated search quality, memory use, and query speed on live news and a benchmark with 300 human relevance judgments.",
       stack: ["Python", "Sentence Transformers", "FastAPI", "Streamlit", "SQLite"], github: "https://github.com/nhidinh2/newTrace", demo: "" },
-    { title: "SpecShield", tag: "AI Agent Security · Research Prototype", color: "#ffb703",
-      desc: "Built a policy monitor for tool-using AI agents that checks action fields, data flow, and the origin of user approvals. Evaluated prompt-injection attacks, false blocks, and failures under corrupted provenance; the repository includes an offline demo and research paper.",
+    { title: "AI Agent Security Monitor", tag: "AI Security · Research Prototype", color: "#ffb703",
+      desc: "Built a monitor that checks proposed AI agent actions against permissions, data flow, and user approvals. Tested prompt injection, legitimate actions blocked by mistake, and unreliable approval signals. Includes an offline demo, evaluation code, and research paper.",
       stack: ["Python", "AgentDojo", "Policy Engine", "Evaluation"], github: "https://github.com/nhidinh2/specshield", demo: "" },
     { title: "Prediction Market Calibration", tag: "Statistical Modeling · Data Analysis", color: "#3a86ff",
-      desc: "Analyzed how Kalshi forecast accuracy varies by category and time to resolution. Built a data pipeline, regression models with point-in-time controls, and out-of-sample calibration experiments, with an interactive dashboard to explore the findings.",
+      desc: "Studied whether Kalshi market prices reflect accurate probabilities across categories and forecast horizons. Built the data pipeline, statistical models, and validation on held-out markets, with an interactive dashboard showing the results and limitations.",
       stack: ["Python", "pandas", "statsmodels", "React", "TypeScript"], github: "https://github.com/nhidinh2/prediction-market-calibration", demo: "https://dist-zeta-jade-85.vercel.app/" },
-    { title: "wave-length", tag: "Market Microstructure · Quantitative Research", color: "#2ec4b6",
-      desc: "Developed an order-book research pipeline over 72.3 million events to study short-horizon price formation. Implemented order-flow baselines, causal response kernels, and queue-aware trading simulations with walk-forward validation. Documented both predictive gains and negative results after trading costs.",
+    { title: "Order Book Price Modeling", tag: "Market Microstructure · Quantitative Research", color: "#2ec4b6",
+      desc: "Built a research pipeline over 72.3 million order book events to study short-term price changes. Compared order flow and wave response models using rolling train and test periods. Simulated execution costs and queue position to distinguish predictive improvements from trading profitability.",
       stack: ["Python", "Time Series", "Order-Book Data", "Walk-Forward Validation"], github: "https://github.com/nhidinh2/wave-length", demo: "" }
   ],
 
