@@ -12,7 +12,6 @@
   $("title").textContent = P.title;
   const bio = P.bio;
   $("aboutText").innerHTML = `
-    <p class="bio-intro">${esc(bio.intro)}</p>
     <p>${esc(bio.education)}</p>
     <p>I’m interested in <strong>${esc(bio.focus)}</strong>${esc(bio.focusTail)}</p>
     <p>${esc(bio.outside)}</p>
