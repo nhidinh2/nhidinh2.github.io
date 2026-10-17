@@ -3,134 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Nhi Dinh is a mathematical computer science PhD researcher building rigorously evaluated systems for retrieval, AI safety, and quantitative research.">
-  <meta name="theme-color" content="#0b1020">
-  <meta property="og:title" content="Nhi Dinh — Researcher &amp; Applied AI Builder">
-  <meta property="og:description" content="Research and engineering across information retrieval, agent safety, quantitative modeling, and combinatorics.">
-  <meta property="og:type" content="website">
-  <title>Nhi Dinh — Researcher &amp; Applied AI Builder</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect rx='7' fill='%231e54e8' width='32' height='32'/%3E%3Ctext x='7' y='24' font-family='Arial' font-weight='700' font-size='22' fill='white'%3EN%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/profile.css">
+  <meta name="description" content="Nhi Dinh — math & theoretical computer science PhD student at UIC.">
+  <title>Nhi Dinh | Mathematical Computer Science</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%233a86ff' width='32' height='32' rx='9'/%3E%3Ctext x='8' y='24' font-size='21' font-family='Arial' font-weight='bold' fill='white'%3EN%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/profile.css?v=20261017-original">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <main id="main" class="profile">
 
-  <header class="site-header">
-    <div class="nav-shell">
-      <a class="brand" href="#top" aria-label="Nhi Dinh home"><span>ND</span><strong>Nhi Dinh</strong></a>
-      <nav aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#research">Research</a>
-        <a href="#experience">Experience</a>
-        <a href="#about">About</a>
-      </nav>
-      <a class="universe-link" href="universe/">Explore the universe <span aria-hidden="true">↗</span></a>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow"><span></span> Mathematical computer science · Chicago</p>
-          <h1>I build machine-learning systems that hold up under <em>serious evaluation.</em></h1>
-          <p class="hero-intro">I’m <strong>Nhi Dinh</strong>, a PhD researcher at UIC working where algorithms, statistical modeling, and applied AI meet—from retrieval systems and agent security to market microstructure.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#work">View selected work</a>
-            <a class="button" href="assets/Nhi-Dinh-Resume.pdf" target="_blank">Résumé <span aria-hidden="true">↗</span></a>
-            <a class="text-link" href="https://github.com/nhidinh2" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-
-        <aside class="signal-card" aria-label="Profile highlights">
-          <div class="signal-top"><span>PROFILE / 2026</span><i>ONLINE</i></div>
-          <div class="identity">
-            <div class="avatar" aria-hidden="true"><span class="hair"></span><span class="face">••</span><span class="body"></span></div>
-            <div><strong>Nhi Dinh</strong><span>PhD Researcher · Applied AI</span></div>
-          </div>
-          <dl>
-            <div><dt>Research</dt><dd>Algorithms + ML</dd></div>
-            <div><dt>Builds in</dt><dd>Python · C++ · SQL</dd></div>
-            <div><dt>Currently</dt><dd>UIC Mathematics PhD</dd></div>
-          </dl>
-          <div class="signal-footer">Theory-aware. Evidence-first. Built to reproduce.</div>
-        </aside>
+    <section class="card head-card" aria-labelledby="displayName">
+      <img class="avatar-box" src="assets/nhi-avatar-game.png" width="179" height="179" alt="Nhi's Roblox-style avatar from her game: long black hair, pink hoodie, waving">
+      <div class="head-info">
+        <h1 id="displayName"></h1>
+        <p class="handle" id="handle"></p>
+        <p class="status"><span class="dot" aria-hidden="true"></span><span id="status"></span></p>
+        <p class="title" id="title"></p>
       </div>
-
-      <dl class="proof-strip" aria-label="Career highlights">
-        <div><dt>2</dt><dd>Research publications</dd></div>
-        <div><dt>3</dt><dd>Technical internships</dd></div>
-        <div><dt>3.9</dt><dd>UIUC undergraduate GPA</dd></div>
-        <div><dt>4</dt><dd>Selected systems below</dd></div>
-      </dl>
+      <a class="visit" href="universe/" aria-describedby="visitSub">
+        <span class="visit-copy">
+          <span class="visit-tag">3D · playable in your browser</span>
+          <span class="visit-title">Visit Nhi's Universe</span>
+          <span class="visit-sub" id="visitSub">Walk around my Roblox-style town: my house, research lab, project garage &amp; library. Collect coins, pet my cat, shoot some hoops.</span>
+        </span>
+        <span class="visit-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>PLAY</span>
+      </a>
     </section>
 
-    <section class="section work" id="work" aria-labelledby="work-title">
-      <div class="section-heading">
-        <div><p class="eyebrow">Selected work</p><h2 id="work-title">Systems with receipts.</h2></div>
-        <p>Every project pairs a real problem with reproducible code, measured results, and clear limitations.</p>
-      </div>
-      <div class="project-grid" id="projectList"></div>
-      <p class="section-footnote">More experiments, coursework, and smaller builds live on <a href="https://github.com/nhidinh2?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+
+    <section class="card about" aria-labelledby="about-title">
+      <h2 id="about-title">About Me</h2>
+      <div class="bio-copy" id="aboutText"></div>
     </section>
 
-    <section class="section research" id="research" aria-labelledby="research-title">
-      <div class="section-heading">
-        <div><p class="eyebrow">Research</p><h2 id="research-title">Algorithms, probability, and hypergraphs.</h2></div>
-        <p>My theoretical work studies the algorithmic structure of dense random systems and constrained coloring problems.</p>
+    <section aria-labelledby="creations-title">
+      <div class="row-title">
+        <h2 id="creations-title">My Creations</h2>
+        <a href="#portfolio" id="viewAll">View all <span aria-hidden="true">→</span></a>
       </div>
-      <div class="paper-list" id="paperList"></div>
+      <div class="creations" id="creations"></div>
     </section>
 
-    <section class="section experience" id="experience" aria-labelledby="experience-title">
-      <div class="section-heading">
-        <div><p class="eyebrow">Experience</p><h2 id="experience-title">Research translated into working systems.</h2></div>
-      </div>
-      <div class="experience-list" id="experienceList"></div>
+    <section aria-labelledby="badges-title">
+      <div class="row-title"><h2 id="badges-title">My Badges</h2></div>
+      <ul class="badges" id="badges"></ul>
     </section>
 
-    <section class="section about" id="about" aria-labelledby="about-title">
-      <div class="about-grid">
-        <div>
-          <p class="eyebrow">About</p>
-          <h2 id="about-title">I care about the result—and whether the experiment deserved it.</h2>
-          <p id="aboutText"></p>
-          <p>I’m especially drawn to projects where mathematical structure changes how a system should be designed, measured, or trusted.</p>
-          <div class="about-links">
-            <a href="https://scholar.google.com/citations?hl=en&amp;user=BjeNuUcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar ↗</a>
-            <a href="https://www.linkedin.com/in/nhi-dinh-533162276/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-          </div>
-        </div>
-        <div class="toolkit"><p class="toolkit-label">Technical toolkit</p><div id="skillsList"></div></div>
-      </div>
-    </section>
+    <footer class="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Find me</h2>
+      <ul class="contact-links" id="contactLinks"></ul>
+    </footer>
 
-    <section class="section universe" aria-labelledby="universe-title">
-      <div class="universe-card">
-        <div class="world-art" aria-hidden="true"><span class="sun"></span><i class="hill one"></i><i class="hill two"></i><b class="house"></b><b class="tree t1"></b><b class="tree t2"></b></div>
-        <div class="universe-copy">
-          <p class="eyebrow">A less conventional portfolio</p>
-          <h2 id="universe-title">There’s a whole playable world behind this page.</h2>
-          <p>Walk through my project garage, research lab, library, and home in a browser-based low-poly town. Collect coins, solve a hypergraph puzzle, or just pet the cat.</p>
-          <a class="button primary" href="universe/">Enter Nhi’s Universe <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact" id="contact" aria-labelledby="contact-title">
-      <div>
-        <p class="eyebrow">Let’s talk</p>
-        <h2 id="contact-title">Interested in thoughtful ML, research, or engineering work?</h2>
-      </div>
-      <a class="button light" href="mailto:nhidinh2@illinois.edu">nhidinh2@illinois.edu <span aria-hidden="true">↗</span></a>
-    </section>
   </main>
 
-  <footer>
-    <div><span>© <span id="year"></span> Nhi Dinh</span><span>Designed in Chicago. Built with plain HTML, CSS, and JavaScript.</span><a href="#top">Back to top ↑</a></div>
-  </footer>
+  <dialog id="portfolioDialog" aria-labelledby="dialogTitle">
+    <header class="dialog-head"><h2 id="dialogTitle">Portfolio</h2><button class="dialog-close" type="button" aria-label="Close portfolio">×</button></header>
+    <div id="dialogContent"></div>
+  </dialog>
 
-  <script src="js/content.js"></script>
-  <script src="js/profile.js"></script>
+  <script src="js/content.js?v=20261017-content"></script>
+  <script src="js/profile.js?v=20261017-content"></script>
 </body>
 </html>
