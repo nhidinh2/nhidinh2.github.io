@@ -19,11 +19,11 @@ const CONTENT = {
     status: "Online · Chicago",
     title: "PhD Student · Mathematical Computer Science",
     bio: {
-      intro: "Hi, I’m Nhi Dinh (nee-din).",
+      intro: "Hi, I’m Nhi Dinh.",
       education: "I’m a first-year Mathematical Computer Science PhD student at the University of Illinois Chicago. Previously, I studied Statistics + Computer Science with a Mathematics minor at the University of Illinois Urbana-Champaign.",
       focus: "probability, combinatorics, algorithms, and machine learning",
       focusTail: ". My research studies hypergraphs and algorithmic questions. My applied projects explore information retrieval, AI agent security, and statistical modeling, with an emphasis on reproducible experiments.",
-      outside: "I’ve worked in quantitative research, data development, and financial document question answering. Outside research, I enjoy building small projects and spending time with my cat.",
+      outside: "I’ve worked in quantitative research, data development, and financial document question answering.",
       email: "nhidinh2@illinois.edu",
       researchInterests: ["Probability and combinatorics", "Algorithms and theoretical computer science", "Machine learning and information retrieval", "Statistical modeling and time series"]
     },
