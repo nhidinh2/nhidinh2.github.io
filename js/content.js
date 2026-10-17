@@ -24,7 +24,7 @@ const CONTENT = {
       focusTail: ". My research studies hypergraphs and algorithmic questions. My applied projects explore information retrieval, AI agent security, and statistical modeling, with an emphasis on reproducible experiments.",
       outside: "I’ve worked in quantitative research, data development, and financial document question answering.",
       email: "nhidinh2@illinois.edu",
-      researchInterests: ["Probability and combinatorics", "Algorithms and theoretical computer science", "Machine learning and information retrieval", "Statistical modeling and time series"]
+      researchInterests: ["Probability & combinatorics", "Algorithms & theoretical CS", "Machine learning & information retrieval", "Statistical modeling & time series"]
     },
     badges: [
       { name: "UIUC Grad", icon: "grad" },
