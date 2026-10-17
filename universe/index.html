@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Explore Nhi's interactive low-poly portfolio town.">
+  <title>Nhi's Universe | Interactive Portfolio Town</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230066a6' width='32' height='32'/%3E%3Ctext x='7' y='24' font-size='22' fill='white'%3EN%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="game" tabindex="0" aria-label="Nhi's interactive portfolio town. Use WASD to move, Space to jump, E to interact, and Escape to close panels."></canvas>
+  <a class="btn profile-home" href="../">🏠 Back to Profile</a>
+
+  <div class="hud-tl">
+    <div class="pill player"><div class="top"><span id="hudName">Player</span><span class="lv" id="hudLv">Lv 01</span></div><div class="xpbar"><i id="xpFill"></i></div><div class="xptext" id="xpText">0 / 300 XP</div></div>
+    <span class="pill coin-pill"><span class="coin-ico" aria-hidden="true"></span><span id="coinCount">0 NhiCoins</span></span>
+  </div>
+  <div class="hud-tr">
+    <button class="btn blue" id="questBtn" type="button">Quests</button>
+    <button class="btn plain" id="badgeBtn" type="button">Badges 0/9</button>
+    <button class="btn plain sound" id="soundBtn" type="button">Sound on</button>
+    <button class="btn" id="skipBtn" type="button">Skip to site</button>
+  </div>
+  <div class="pill hint" id="hint">WASD move · Space jump · E interact · Drag to look · Scroll to zoom</div>
+  <div class="location" id="locationName">Achievement Plaza</div>
+  <button class="interact" id="interactPrompt" type="button" hidden><kbd>E</kbd><span id="interactText">Interact</span></button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="badge-pop" id="badgePop" role="status" aria-live="polite"></div>
+
+  <div class="touch" id="joy" aria-hidden="true"><div id="knob"></div></div>
+  <button class="touch btn jump" id="jumpBtn" type="button" aria-label="Jump">JUMP</button>
+
+  <div class="overlay start" id="start">
+    <div class="card lobby-card">
+      <div class="card-head"><span class="eyebrow">NHI'S UNIVERSE</span><span class="eyebrow">TOWN SERVER · ONLINE</span></div>
+      <div class="lobby">
+        <span class="online">● Welcome to town</span>
+        <h1 id="startName">Player</h1><p class="sub" id="startLevel"></p><p class="tag" id="startTag"></p>
+        <div class="eyebrow dark">PLAYER STATS</div><div class="statgrid" id="startStats"></div>
+        <button class="btn go big" id="playBtn" type="button">EXPLORE THE TOWN</button>
+        <div class="keys"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move</span><span><kbd>Space</kbd> jump</span><span><kbd>E</kbd> interact</span><span>drag to look</span></div>
+        <a class="linkish" href="../">Recruiter in a hurry? Skip to the profile</a>
+      </div>
+    </div>
+  </div>
+  <div class="overlay info" id="panel" hidden></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="../js/content.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
