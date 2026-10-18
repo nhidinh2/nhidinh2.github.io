@@ -6,18 +6,19 @@
   const P = CONTENT.profile;
   const dialog = $("portfolioDialog");
 
-  $("displayName").textContent = CONTENT.displayName || CONTENT.username;
+  $("displayName").textContent = CONTENT.username;
   $("handle").textContent = P.handle;
   $("status").textContent = P.status;
   $("title").textContent = P.title;
   const bio = P.bio;
   $("aboutText").innerHTML = `
+    <p class="bio-intro">${esc(bio.intro)}</p>
     <p>${esc(bio.education)}</p>
-    <p>I’m interested in <strong>${esc(bio.focus)}</strong>${esc(bio.focusTail)}</p>
+    <p>i’m interested in <strong>${esc(bio.focus)}</strong>${esc(bio.focusTail)}</p>
     <p>${esc(bio.outside)}</p>
     <p class="bio-email"><strong>email:</strong> <a href="mailto:${esc(bio.email)}">${esc(bio.email)}</a></p>
     <section class="research-interests" aria-labelledby="research-interests-title">
-      <h3 id="research-interests-title">Research interests</h3>
+      <h3 id="research-interests-title">research interests</h3>
       <ul>${bio.researchInterests.map((interest) => `<li>${esc(interest)}</li>`).join("")}</ul>
     </section>`;
 
@@ -63,7 +64,7 @@
     return `<section class="detail-section"><h3>Research & Publications</h3>${CONTENT.papers.map((p) => `<article class="detail-entry"><h4>${esc(p.title)}</h4><p class="meta">${esc(p.venue)} · ${esc(p.year)}</p><p>${esc(p.authors)}</p><p>${esc(p.problem)}</p><p>${esc(p.found)}</p>${externalLink(p.link, "Read paper")}</article>`).join("")}</section>`;
   }
   function projects() {
-    return `<section class="detail-section"><h3>Selected projects</h3>${CONTENT.projects.map((p) => `<article class="detail-entry"><h4>${esc(p.title)}</h4><p class="meta">${esc(p.tag)}</p><p>${esc(p.desc)}</p><p class="meta">${p.stack.map(esc).join(" · ")}</p>${externalLink(p.github, "View on GitHub")}${p.demo ? " · " + externalLink(p.demo, "Live dashboard") : ""}</article>`).join("")}</section>`;
+    return `<section class="detail-section"><h3>Coding Projects</h3>${CONTENT.projects.map((p) => `<article class="detail-entry"><h4>${esc(p.title)}</h4><p class="meta">${esc(p.tag)}</p><p>${esc(p.desc)}</p><p class="meta">${p.stack.map(esc).join(" · ")}</p>${externalLink(p.github, "View on GitHub")}</article>`).join("")}</section>`;
   }
   function education() {
     return `<section class="detail-section"><h3>Education</h3>${CONTENT.education.map((e) => `<article class="detail-entry"><h4>${esc(e.full)}</h4><p>${esc(e.degree)}</p><p class="meta">${esc(e.years)}</p><p>${esc(e.story)}</p></article>`).join("")}</section>`;

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categorical data &amp; GLMs — Nhi's Library</title>
+    <link rel="stylesheet" href="css/styles.css?v=20261016-profile" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../#library">Nhi's Library</a>
+        <nav class="nav" aria-label="Library navigation"><a href="../#library">← Back to Universe</a></nav>
+      </div>
+    </header>
+    <main id="main">
+      <p class="page-sub" style="margin-bottom: 0.75rem">
+        <a href="statistical-models-and-methods.html">← Statistical models &amp; methods</a>
+      </p>
+      <h1 class="page-title">Categorical data &amp; GLMs</h1>
+      <p class="page-sub">
+        When outcomes are counts, categories, or yes/no answers, the Normal-errors linear model
+        stops making sense. Generalized linear models keep the linear-predictor idea but swap in
+        the right distribution and the right link.
+      </p>
+
+      <section class="content-section">
+        <h2>Measurement scales</h2>
+        <p>
+          Scales are nested in how much structure they carry: nominal (labels only) $\le$ ordinal
+          (ranked) $\le$ interval (equal gaps) $\le$ ratio (true zero). Methods that assume more
+          structure than the data carry will read noise as signal.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Count distributions</h2>
+        <ul>
+          <li>
+            <strong>Bernoulli</strong> $Y \sim \operatorname{Ber}(\pi)$:
+            $f(y) = \pi^y (1 - \pi)^{1 - y}$; $E[Y] = \pi,\ \operatorname{Var}(Y) = \pi(1 - \pi)$.
+          </li>
+          <li>
+            <strong>Binomial</strong> $Y \sim \operatorname{Bin}(n, \pi)$:
+            $E[Y] = n\pi,\ \operatorname{Var}(Y) = n\pi(1 - \pi)$, with the CLT giving
+            $\dfrac{Y - n\pi}{\sqrt{n\pi(1 - \pi)}} \xrightarrow{d} N(0, 1)$.
+          </li>
+          <li>
+            <strong>Multinomial</strong> $Y \sim \operatorname{Mult}(n, \pi_1, \ldots, \pi_k)$:
+            $f(y) = \dfrac{n!}{\prod_j y_j!}\prod_j \pi_j^{y_j}$;
+            $E[Y_j] = n\pi_j,\ \operatorname{Var}(Y_j) = n\pi_j(1 - \pi_j),\ \operatorname{Cov}(Y_i, Y_j) = -n\pi_i \pi_j$ for $i \ne j$.
+          </li>
+          <li>
+            <strong>Poisson</strong> $Y \sim \operatorname{Poisson}(\mu)$:
+            $E[Y] = \operatorname{Var}(Y) = \mu$, with $\dfrac{Y - \mu}{\sqrt{\mu}} \approx N(0, 1)$
+            for large $\mu$.
+          </li>
+          <li>
+            <strong>Overdispersion:</strong> if $Y \mid \mu \sim \operatorname{Poisson}(\mu)$ and
+            $\operatorname{Var}(\mu) \gt 0$, then
+            $\operatorname{Var}(Y) = E[Y] + \operatorname{Var}(\mu) = \mu + \operatorname{Var}(\mu) \gt \mu$.
+          </li>
+          <li>
+            <strong>Poisson–Multinomial link:</strong> if $Y_i \sim \operatorname{Poisson}(\lambda_i)$ and
+            we condition on $\sum_i Y_i = n$, then
+            $(Y_1, \ldots, Y_k) \mid \sum_i Y_i = n \sim \operatorname{Mult}(n, \pi_1, \ldots, \pi_k)$
+            with $\pi_i = \lambda_i / \sum_i \lambda_i$.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Likelihood, information, and the three tests</h2>
+        <p>
+          The score is $u(\beta) = \partial \ell / \partial \beta$ and the Fisher information is
+          $i(\beta) = -E\!\left[\partial^2 \ell / \partial \beta^2\right] = 1 / \operatorname{SE}^2$.
+          Setting $u(\beta) = 0$ gives the MLE $\hat\beta$ (a maximum when
+          $\partial^2 \ell / \partial \beta^2 \lt 0$).
+        </p>
+        <ul>
+          <li>
+            <strong>Wald:</strong>
+            $z_W = \dfrac{\hat\beta - \beta_0}{\operatorname{SE}(\hat\beta)} \approx N(0, 1)$, or
+            $W = (\hat\beta - \beta_0)' [\widehat{\operatorname{Cov}}(\hat\beta)]^{-1}(\hat\beta - \beta_0) \approx \chi^2_{df}$. “Is $\beta_j$ far from $0$?”
+          </li>
+          <li>
+            <strong>Score:</strong>
+            $z_S = \dfrac{u(\beta_0)}{\sqrt{i(\beta_0)}} \approx N(0, 1)$, or
+            $S = u(\beta_0)' i(\beta_0)^{-1} u(\beta_0) \approx \chi^2_{df}$.
+          </li>
+          <li>
+            <strong>LRT:</strong>
+            $G^2 = 2\bigl(\ell(\hat\beta) - \ell(\beta_0)\bigr) \approx \chi^2_{df}$. “Does removing
+            $\beta_j$ hurt the fit?”
+          </li>
+        </ul>
+        <p>
+          Reject $H_0: \beta = \beta_0$ if $|z_W|, |z_S| \ge z_{\alpha/2}$, equivalently
+          $W, S, G^2 \ge \chi^2_{df, 1-\alpha}$ (using $z_{\alpha/2}^2 = \chi^2_{1, 1-\alpha}$). Wald
+          CIs: $\hat\beta \pm z_{\alpha/2}\, \operatorname{SE}(\hat\beta)$; inverted score/LR CIs:
+          $\{\beta : W, S, G^2 \lt \chi^2_{df, 1-\alpha}\}$. Here $df$ is the number of constraints
+          under $H_0$.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Two-by-two tables</h2>
+        <p>
+          With rows $X$ and columns $Y$, independence means $\pi_{ij} = \pi_{i+} \pi_{+j}$ and
+          homogeneity means $\pi_1 = \pi_2$. Sensitivity is $\pi_1 = n_{11}/n_{1+}$, specificity is
+          $\pi_2 = n_{22}/n_{2+}$.
+        </p>
+        <ul>
+          <li>
+            <strong>Difference in proportions:</strong>
+            $\widehat{\operatorname{diff}} = \hat\pi_1 - \hat\pi_2$, with CI
+            $\hat\pi_1 - \hat\pi_2 \pm z_{\alpha/2}\sqrt{\dfrac{\hat\pi_1(1 - \hat\pi_1)}{n_{1+}} + \dfrac{\hat\pi_2(1 - \hat\pi_2)}{n_{2+}}}$.
+          </li>
+          <li>
+            <strong>Relative risk:</strong>
+            $\widehat{\operatorname{RR}} = \hat\pi_1 / \hat\pi_2$, with CI
+            $\exp\!\left(\ln \widehat{\operatorname{RR}} \pm z_{\alpha/2}\sqrt{\dfrac{1 - \hat\pi_1}{n_{11}} + \dfrac{1 - \hat\pi_2}{n_{21}}}\right)$.
+          </li>
+          <li>
+            <strong>Odds ratio:</strong>
+            $\widehat{\operatorname{OR}} = \dfrac{n_{11} n_{22}}{n_{12} n_{21}}$; OR $= 1$ iff
+            $X \perp Y$. CI:
+            $\exp\!\left(\ln \widehat{\operatorname{OR}} \pm z_{\alpha/2}\sqrt{\tfrac{1}{n_{11}} + \tfrac{1}{n_{12}} + \tfrac{1}{n_{21}} + \tfrac{1}{n_{22}}}\right)$.
+          </li>
+          <li>
+            <strong>Simpson’s paradox:</strong> conditional associations $\theta_R(z)$ can point
+            the opposite way from the marginal $\theta_R$—always check for a confounder $Z$.
+            Conditional independence: $\theta_R(z) = 1$, equivalently
+            $\pi_{ijk} = \pi_{i+k}\,\pi_{+jk} / \pi_{++k}$.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Independence tests on contingency tables</h2>
+        <p>
+          Under $H_0$: $\pi_{ij} = \pi_{i+} \pi_{+j}$, expected counts are
+          $\hat\mu_{ij} = n_{i+} n_{+j} / n$. Two asymptotic test statistics:
+        </p>
+        <p>
+          $$X^2 = \sum_{ij} \frac{(n_{ij} - \hat\mu_{ij})^2}{\hat\mu_{ij}} \;\sim\; \chi^2_{(I-1)(J-1)},
+          \qquad
+          G^2 = 2\sum_{ij} n_{ij} \ln\!\left(\frac{n_{ij}}{\hat\mu_{ij}}\right) \;\sim\; \chi^2_{(I-1)(J-1)}.$$
+          $\chi^2$ is more accurate for small $n$. Reject if the observed statistic exceeds
+          $\chi^2_{df, 1-\alpha}$.
+        </p>
+        <ul>
+          <li>
+            Residuals: raw $r_{ij} = n_{ij} - \hat\mu_{ij}$;
+            Pearson $e_{ij} = (n_{ij} - \hat\mu_{ij}) / \sqrt{\hat\mu_{ij}}$;
+            standardized $r^{(S)}_{ij} = (n_{ij} - \hat\mu_{ij}) / \sqrt{\hat\mu_{ij}(1 - \pi_{i+})(1 - \pi_{+j})}$.
+          </li>
+          <li>
+            After declaring dependence, cells with $|e_{ij}|$ or $|r^{(S)}_{ij}| \gt 2$ are driving
+            the association.
+          </li>
+          <li>
+            <strong>Partition of likelihood</strong> (nested models $A \subset B \subset C$):
+            $G^2(A \text{ vs } C) = G^2(A \text{ vs } B) + G^2(B \text{ vs } C)$ exactly.
+          </li>
+          <li>
+            <strong>Fisher’s exact test:</strong>
+            $P_{H_0}(N_{11} = t) = \dfrac{\binom{n_{1+}}{t}\binom{n_{2+}}{n_{+1} - t}}{\binom{n}{n_{+1}}}$
+            on $\max(0, n_{+1} - n_{2+}) \le t \le \min(n_{+1}, n_{1+})$.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Generalized linear models</h2>
+        <p>
+          A GLM models a link-transformed mean as a linear function of predictors:
+          $$g(\mu_i) = x_i^{\top} \beta, \qquad \mu_i = E[Y_i].$$
+          Pick a distribution from the exponential family
+          $f(y \mid \pi) = \alpha(\pi)\, \beta(y)\, \exp(y\, Q(\pi))$; the natural parameter
+          $Q(\pi)$ induces the canonical link. Fit by MLE:
+          $\ell(\beta) = \sum_i \log f(y_i;\, \mu_i(\beta))$.
+        </p>
+        <p>
+          <strong>Logistic regression</strong> (Bernoulli / Binomial, canonical logit link):
+          $$g(\pi) = \log\!\frac{\pi_i}{1 - \pi_i} = \beta_0 + \beta_1 x_i, \qquad
+          \pi(x) = \frac{e^{\alpha + \beta x}}{1 + e^{\alpha + \beta x}}.$$
+          Here $e^{\beta_1}$ is the odds ratio for a 1-unit increase in $x$. The curve is steepest
+          at $\pi(x) = 0.5$, i.e. $x = -\alpha/\beta$. Sign of $\beta$:
+          $\beta \gt 0 \Rightarrow$ $P(Y = 1)$ increases with $x$;
+          $\beta \lt 0 \Rightarrow$ decreases;
+          $\beta = 0 \Rightarrow$ no relationship.
+        </p>
+        <p>
+          <strong>Logistic with a categorical predictor:</strong> if $X$ has $I$ levels with level 1
+          as reference, $\operatorname{logit}(\pi_i) = \alpha + \beta_2 x_{i2} + \cdots + \beta_I x_{iI}$,
+          so $\beta_i - \beta_j$ is the log odds ratio comparing category $i$ to category $j$. The
+          full categorical model is saturated, so it has no deviance goodness-of-fit test.
+        </p>
+        <p>
+          <strong>Poisson regression</strong> (canonical log link):
+          $$\log \mu_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip}.$$
+          $e^{\beta_j}$ is the rate ratio for a 1-unit increase in $x_j$, holding others fixed. Add
+          an offset $\log(t_i)$ when modeling rates per unit of exposure.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Residuals, goodness-of-fit, and nested comparisons</h2>
+        <ul>
+          <li>
+            <strong>Raw</strong> $y_i - \hat\mu_i$—bad for direct comparison since variances
+            differ across $i$.
+          </li>
+          <li>
+            <strong>Pearson</strong> $(y_i - \hat\mu_i)/\sqrt{\nu(\hat\mu_i)}$; squared sum gives
+            $X^2$.
+          </li>
+          <li>
+            <strong>Deviance</strong> $\operatorname{sign}(y_i - \hat\mu_i)\sqrt{d_i}$; squared sum
+            gives residual deviance $D$.
+          </li>
+          <li>
+            <strong>Standardized</strong> $e_i / \sqrt{1 - \hat h_i}$ adjusts for leverage, best for
+            outlier checking.
+          </li>
+        </ul>
+        <p>
+          <strong>Goodness-of-fit:</strong>
+          $D \approx \chi^2_{df}$ (LRT) and
+          $X^2 = \sum_i (y_i - \hat\mu_i)^2 / V(\hat\mu_i) \approx \chi^2_{df}$ (Pearson). Large
+          values relative to $df$ give evidence against the fitted model.
+        </p>
+        <p>
+          <strong>Leverage:</strong> flag $h_i \gt 2p/n$, where $p$ is the number of parameters.
+        </p>
+        <p>
+          <strong>Nested model comparison</strong> ($M_0 \subset M_1$):
+          $$G^2 = D(M_0) - D(M_1) = 2\bigl(\ell(\hat\beta_1) - \ell(\hat\beta_0)\bigr) \approx \chi^2_{df},$$
+          with $df = \dim(M_1) - \dim(M_0)$. Reject $M_0$ if $G^2 \gt \chi^2_{df, 1-\alpha}$.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Quasi-likelihood for overdispersion</h2>
+        <p>
+          A Poisson GLM assumes $\operatorname{Var}(Y_i) = \mu_i$. Compare residual deviance or
+          Pearson $X^2$ to the residual $df$: a ratio well above $1$ flags overdispersion. Fix by
+          switching to quasi-Poisson:
+          $$\operatorname{Var}(Y_i) = \phi\, \mu_i, \qquad
+          \hat\phi = \frac{X^2}{N - p'}, \qquad
+          X^2 = \sum_i \frac{(y_i - \hat\mu_i)^2}{\hat\mu_i}.$$
+          Coefficients $\hat\beta$ don’t change; standard errors scale as
+          $\operatorname{SE}_{\text{new}}(\hat\beta_j) = \sqrt{\hat\phi}\, \operatorname{SE}_{\text{usual}}(\hat\beta_j)$.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Worked example: reading a logistic fit</h2>
+        <p>
+          Suppose a fitted model for the probability of default is
+          $\operatorname{logit}(\hat\pi) = -4.0 + 0.9\, x$ with $x$ = debt-to-income in units of 10%.
+          Because coefficients live on the log-odds scale, interpretation runs through
+          exponentiation:
+        </p>
+        <ul>
+          <li>
+            <strong>Odds ratio:</strong> $e^{0.9} \approx 2.46$—each extra 10% of debt-to-income
+            multiplies the odds of default by about $2.5$.
+          </li>
+          <li>
+            <strong>Fitted probability</strong> at $x = 3$:
+            $\operatorname{logit} = -4.0 + 2.7 = -1.3$, so
+            $\hat\pi = e^{-1.3}/(1 + e^{-1.3}) \approx 0.21$.
+          </li>
+          <li>
+            <strong>Steepest point / median-effect level:</strong> $\hat\pi = 0.5$ at
+            $x = -\hat\alpha/\hat\beta = 4.0/0.9 \approx 4.4$.
+          </li>
+          <li>
+            <strong>Marginal slope:</strong> near $\hat\pi = 0.5$ a one-unit change in $x$ shifts
+            probability by roughly $\hat\beta \cdot \hat\pi(1 - \hat\pi) = 0.9 \times 0.25 \approx 0.22$;
+            the effect on probability is largest in the middle and shrinks toward the tails.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Multinomial and ordinal responses</h2>
+        <p>
+          With more than two response categories the logit generalizes in two ways depending on
+          whether the categories are ordered.
+        </p>
+        <p>
+          <strong>Baseline-category (multinomial) logit</strong> for nominal $Y \in \{1, \ldots, J\}$
+          fits $J - 1$ logits against a reference category $J$:
+          $$\log\frac{\pi_j(x)}{\pi_J(x)} = \alpha_j + \beta_j^\top x, \qquad j = 1, \ldots, J - 1,$$
+          each with its own slope vector. Inverting gives the softmax
+          $\pi_j(x) = e^{\alpha_j + \beta_j^\top x} / \sum_{k} e^{\alpha_k + \beta_k^\top x}$.
+        </p>
+        <p>
+          <strong>Proportional-odds (cumulative logit)</strong> for ordinal $Y$ models the cumulative
+          probabilities with category-specific intercepts but a <em>shared</em> slope:
+          $$\operatorname{logit}\,P(Y \le j \mid x) = \alpha_j - \beta^\top x, \qquad
+          \alpha_1 \le \alpha_2 \le \cdots \le \alpha_{J-1}.$$
+          The single $\beta$ makes $e^{\beta}$ a cumulative odds ratio that is constant across the
+          cut points—the proportional-odds assumption, which should be checked (e.g. a score test)
+          before relying on it.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Matched pairs and stratified tables</h2>
+        <p>
+          When rows and columns are not independent samples, ordinary $\chi^2$ is the wrong tool.
+        </p>
+        <ul>
+          <li>
+            <strong>McNemar's test</strong> (matched pairs, e.g. before/after on the same subjects)
+            uses only the discordant cells $n_{12}, n_{21}$:
+            $$\chi^2_M = \frac{(n_{12} - n_{21})^2}{n_{12} + n_{21}} \;\sim\; \chi^2_1.$$
+            The concordant cells carry no information about a change in marginal proportions.
+          </li>
+          <li>
+            <strong>Cochran–Mantel–Haenszel</strong> pools a $2\times 2$ association across $K$ strata
+            (controlling a confounder $Z$) while allowing different baseline rates per stratum:
+            $$\text{CMH} = \frac{\bigl(\sum_k [n_{11k} - E_{k}]\bigr)^2}{\sum_k V_k} \;\sim\; \chi^2_1,
+            \qquad E_k = \frac{n_{1+k} n_{+1k}}{n_{++k}}.$$
+            The MH odds-ratio estimate
+            $\widehat{\operatorname{OR}}_{MH} = \dfrac{\sum_k n_{11k} n_{22k}/n_{++k}}{\sum_k n_{12k} n_{21k}/n_{++k}}$
+            summarizes the common association and is the antidote to the Simpson's-paradox reversal
+            noted earlier.
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p><a href="statistical-models-and-methods.html">← Back to Statistical models &amp; methods</a></p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Statistical inference — Nhi's Library</title>
+    <link rel="stylesheet" href="css/styles.css?v=20261016-profile" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../#library">Nhi's Library</a>
+        <nav class="nav" aria-label="Library navigation"><a href="../#library">← Back to Universe</a></nav>
+      </div>
+    </header>
+    <main id="main">
+      <h1 class="page-title">Statistical inference</h1>
+      <p class="page-sub">
+        Inference turns observations into statements about parameters, predictions, or decisions—
+        while being explicit about assumptions, variability, and what could go wrong if the model
+        is misspecified. We treat the data as a sample $X_1, \ldots, X_n$ from a model
+        $\{f(x; \theta) : \theta \in \Theta\}$ and ask what the sample says about the unknown
+        $\theta$.
+      </p>
+
+      <section class="content-section">
+        <h2>Point estimation</h2>
+        <p>
+          An estimator $\hat\theta = T(X_1, \ldots, X_n)$ is any statistic used to guess $\theta$.
+          Two general recipes dominate.
+        </p>
+        <ul>
+          <li>
+            <strong>Method of moments:</strong> equate the first $k$ sample moments to the
+            population moments and solve. Set
+            $\dfrac{1}{n}\sum_i X_i^{\,j} = E_\theta[X^j]$ for $j = 1, \ldots, k$, then invert for
+            $\hat\theta$. Cheap and consistent, but usually not efficient.
+          </li>
+          <li>
+            <strong>Maximum likelihood:</strong> with likelihood
+            $L(\theta) = \prod_{i=1}^{n} f(X_i; \theta)$ and log-likelihood
+            $\ell(\theta) = \sum_i \log f(X_i; \theta)$, the MLE maximizes $\ell$. Solve the score
+            equation
+            $$u(\theta) = \frac{\partial \ell}{\partial \theta} = 0,$$
+            checking $\partial^2 \ell / \partial \theta^2 \lt 0$ for a maximum. MLEs are invariant:
+            $\widehat{g(\theta)} = g(\hat\theta)$.
+          </li>
+        </ul>
+
+        <h3 style="font-family: var(--font-display); font-size: 1rem; margin: 1rem 0 0.5rem; color: var(--text)">Evaluating an estimator</h3>
+        <p>
+          Quality is measured by how far $\hat\theta$ lands from $\theta$ on average:
+          $$\operatorname{Bias}(\hat\theta) = E_\theta[\hat\theta] - \theta, \qquad
+          \operatorname{MSE}(\hat\theta) = E_\theta\!\left[(\hat\theta - \theta)^2\right]
+          = \operatorname{Var}(\hat\theta) + \operatorname{Bias}(\hat\theta)^2.$$
+          This is the bias–variance decomposition: unbiasedness is not free, and a slightly biased
+          estimator with much smaller variance can win on MSE.
+        </p>
+        <ul>
+          <li>
+            <strong>Consistency:</strong> $\hat\theta_n \xrightarrow{p} \theta$ as $n \to \infty$—
+            the estimator concentrates on the truth. Sufficient conditions: bias $\to 0$ and
+            variance $\to 0$.
+          </li>
+          <li>
+            <strong>Sufficiency:</strong> $T(X)$ is sufficient for $\theta$ if the conditional
+            distribution of the data given $T$ is free of $\theta$. Factorization criterion:
+            $f(x; \theta) = g(T(x); \theta)\, h(x)$. Rao–Blackwell says conditioning any unbiased
+            estimator on a sufficient statistic never increases variance.
+          </li>
+          <li>
+            <strong>Efficiency:</strong> among unbiased estimators, smaller variance is better; the
+            floor is set by the information bound below.
+          </li>
+        </ul>
+
+        <h3 style="font-family: var(--font-display); font-size: 1rem; margin: 1rem 0 0.5rem; color: var(--text)">Fisher information and the Cramér–Rao bound</h3>
+        <p>
+          The Fisher information measures how sharply the likelihood identifies $\theta$:
+          $$I(\theta) = E_\theta\!\left[\left(\frac{\partial \log f}{\partial \theta}\right)^{\!2}\right]
+          = -E_\theta\!\left[\frac{\partial^2 \log f}{\partial \theta^2}\right],$$
+          and information adds over an i.i.d. sample: $I_n(\theta) = n\, I(\theta)$. Any unbiased
+          estimator obeys the <strong>Cramér–Rao lower bound</strong>
+          $$\operatorname{Var}(\hat\theta) \ge \frac{1}{n\, I(\theta)}.$$
+          An estimator attaining it is <em>efficient</em>. Under regularity the MLE is
+          asymptotically efficient and normal:
+          $$\sqrt{n}\,(\hat\theta_{\text{MLE}} - \theta) \xrightarrow{d} N\!\bigl(0,\ I(\theta)^{-1}\bigr).$$
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Sampling distributions</h2>
+        <p>
+          Interval and test procedures are built from the distribution of statistics under
+          repeated sampling. For an i.i.d. Normal sample $X_i \sim N(\mu, \sigma^2)$:
+        </p>
+        <ul>
+          <li>
+            <strong>Sample mean:</strong> $\bar X \sim N\!\bigl(\mu,\ \sigma^2/n\bigr)$; the
+            standard error is $\operatorname{SE}(\bar X) = \sigma/\sqrt{n}$ (estimated by
+            $s/\sqrt{n}$).
+          </li>
+          <li>
+            <strong>Sample variance:</strong> $s^2 = \dfrac{1}{n-1}\sum_i (X_i - \bar X)^2$ is
+            unbiased for $\sigma^2$, and
+            $\dfrac{(n-1)s^2}{\sigma^2} \sim \chi^2_{n-1}$, independent of $\bar X$.
+          </li>
+          <li>
+            <strong>t:</strong> $\dfrac{\bar X - \mu}{s/\sqrt{n}} \sim t_{n-1}$—replacing $\sigma$
+            by $s$ inflates the tails, giving Student's $t$.
+          </li>
+          <li>
+            <strong>F:</strong> a ratio of two independent scaled chi-squares,
+            $F = \dfrac{\chi^2_{d_1}/d_1}{\chi^2_{d_2}/d_2} \sim F_{d_1, d_2}$—the workhorse for
+            comparing variances and nested models.
+          </li>
+        </ul>
+        <p>
+          Away from Normality, the CLT and Slutsky's theorem give the large-sample versions:
+          $\dfrac{\bar X - \mu}{s/\sqrt{n}} \xrightarrow{d} N(0, 1)$, which is why $z$- and
+          $t$-based procedures are so widely reusable.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Uncertainty quantification</h2>
+        <p>
+          A $100(1-\alpha)\%$ <strong>confidence interval</strong> is a random interval
+          $[L(X), U(X)]$ with $P_\theta(L \le \theta \le U) = 1 - \alpha$ for all $\theta$. The
+          coverage statement is about the procedure, not a single realized interval.
+        </p>
+        <ul>
+          <li>
+            <strong>Pivotal method:</strong> find a pivot $Q(X, \theta)$ whose distribution is free
+            of $\theta$, then invert. The Normal-mean pivot $\dfrac{\bar X - \mu}{s/\sqrt{n}} \sim
+            t_{n-1}$ gives
+            $$\bar X \pm t_{n-1,\, 1-\alpha/2}\,\frac{s}{\sqrt{n}}.$$
+          </li>
+          <li>
+            <strong>Large-sample (Wald):</strong> $\hat\theta \pm z_{1-\alpha/2}\,
+            \operatorname{SE}(\hat\theta)$, using
+            $\operatorname{SE}(\hat\theta) \approx 1/\sqrt{n\, I(\hat\theta)}$ from the MLE's
+            asymptotic normality.
+          </li>
+          <li>
+            <strong>Delta method:</strong> to get a CI for $g(\theta)$, propagate variance through a
+            smooth transform:
+            $$\operatorname{Var}\bigl(g(\hat\theta)\bigr) \approx g'(\theta)^2\,
+            \operatorname{Var}(\hat\theta),$$
+            so $\sqrt{n}\,(g(\hat\theta) - g(\theta)) \xrightarrow{d} N\!\bigl(0,\ g'(\theta)^2 / I(\theta)\bigr)$.
+          </li>
+          <li>
+            <strong>Bootstrap:</strong> when no clean pivot exists, resample the data (or simulate
+            from $\hat\theta$) $B$ times, recompute $\hat\theta^{*}$, and read percentiles of the
+            $\hat\theta^{*}$ distribution to form an interval—no closed-form SE required.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Hypothesis testing</h2>
+        <p>
+          A test partitions the sample space into a rejection region for
+          $H_0: \theta \in \Theta_0$ versus $H_1: \theta \in \Theta_1$. Two error types trade off:
+        </p>
+        <ul>
+          <li>
+            <strong>Type I</strong> (reject a true $H_0$): rate $\alpha = P_{H_0}(\text{reject})$,
+            the significance level.
+          </li>
+          <li>
+            <strong>Type II</strong> (fail to reject a false $H_0$): rate $\beta$; the
+            <strong>power</strong> is $1 - \beta = P_{H_1}(\text{reject})$, increasing in effect
+            size, sample size, and $\alpha$.
+          </li>
+          <li>
+            <strong>p-value:</strong> the probability, under $H_0$, of a statistic at least as
+            extreme as observed. Reject when $p \le \alpha$; read it alongside effect size, not as
+            $P(H_0 \mid \text{data})$.
+          </li>
+        </ul>
+        <p>
+          <strong>Neyman–Pearson lemma:</strong> for simple $H_0: \theta = \theta_0$ vs
+          $H_1: \theta = \theta_1$, the most powerful level-$\alpha$ test rejects for large values
+          of the likelihood ratio
+          $$\Lambda = \frac{L(\theta_1)}{L(\theta_0)}.$$
+          For composite hypotheses the <strong>generalized likelihood ratio test</strong> uses
+          $$\lambda = \frac{\sup_{\theta \in \Theta_0} L(\theta)}{\sup_{\theta \in \Theta} L(\theta)},
+          \qquad -2\log\lambda \xrightarrow{d} \chi^2_{df},$$
+          with $df$ = the number of free parameters constrained under $H_0$ (Wilks' theorem).
+        </p>
+        <p>
+          The three asymptotically equivalent tests of $H_0: \theta = \theta_0$—<strong>Wald</strong>
+          $\dfrac{\hat\theta - \theta_0}{\operatorname{SE}(\hat\theta)}$, <strong>score</strong>
+          $\dfrac{u(\theta_0)}{\sqrt{I(\theta_0)}}$, and the <strong>likelihood ratio</strong>
+          $-2\log\lambda$—use, respectively, the curvature at $\hat\theta$, the slope at
+          $\theta_0$, and the height difference of $\ell$. <strong>Duality:</strong> the set of
+          $\theta_0$ not rejected at level $\alpha$ is exactly a $100(1-\alpha)\%$ confidence
+          interval.
+        </p>
+        <ul>
+          <li><strong>One-sample $t$:</strong> $H_0: \mu = \mu_0$ via $t = (\bar X - \mu_0)/(s/\sqrt n) \sim t_{n-1}$.</li>
+          <li><strong>Two-sample $t$:</strong> compare means with pooled or Welch standard errors.</li>
+          <li><strong>$\chi^2$:</strong> goodness-of-fit and independence in contingency tables (see Categorical data).</li>
+          <li><strong>Multiplicity:</strong> testing many hypotheses inflates false positives—control the family-wise error (Bonferroni) or the false discovery rate (Benjamini–Hochberg).</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Bayesian inference</h2>
+        <p>
+          Bayesian inference treats $\theta$ as random and updates a prior with the likelihood:
+          $$p(\theta \mid x) = \frac{f(x \mid \theta)\, p(\theta)}{\int f(x \mid \theta)\, p(\theta)\, d\theta}
+          \;\propto\; f(x \mid \theta)\, p(\theta).$$
+          The full posterior $p(\theta \mid x)$ is the object of inference; summaries include the
+          posterior mean/median and the <strong>MAP</strong> estimate
+          $\hat\theta_{\text{MAP}} = \arg\max_\theta p(\theta \mid x)$.
+        </p>
+        <ul>
+          <li>
+            <strong>Conjugacy:</strong> a prior is conjugate when the posterior stays in the same
+            family—Beta–Binomial, Gamma–Poisson, Normal–Normal—turning updating into arithmetic on
+            hyperparameters.
+          </li>
+          <li>
+            <strong>Credible interval:</strong> a set with $P(\theta \in C \mid x) = 1 - \alpha$;
+            unlike a confidence interval, this is a direct probability statement about $\theta$.
+          </li>
+          <li>
+            <strong>Frequentist link:</strong> with a flat prior the MAP coincides with the MLE, and
+            as $n \to \infty$ the posterior concentrates and looks Normal around $\hat\theta_{\text{MLE}}$
+            (Bernstein–von Mises)—the prior washes out.
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p><a href="../#library">← Back to Nhi's Universe</a></p>
+    </footer>
+  </body>
+</html>

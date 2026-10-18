@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Probability — Nhi's Library</title>
+    <link rel="stylesheet" href="css/styles.css?v=20261016-profile" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../#library">Nhi's Library</a>
+        <nav class="nav" aria-label="Library navigation"><a href="../#library">← Back to Universe</a></nav>
+      </div>
+    </header>
+    <main id="main">
+      <h1 class="page-title">Probability</h1>
+      <p class="page-sub">
+        Probability quantifies uncertainty. It gives rules for combining events, updating beliefs
+        when information arrives, and describing how averages behave as evidence accumulates.
+      </p>
+
+      <section class="content-section">
+        <h2>Probability</h2>
+        <p>
+          A probability space $(\Omega, \mathcal{F}, P)$ pairs a sample space of outcomes with a
+          $\sigma$-algebra of measurable events and a measure $P$ that assigns each event a number
+          in $[0, 1]$. Kolmogorov’s axioms—non-negativity, normalization $P(\Omega) = 1$, and
+          countable additivity—keep the calculus coherent even when events become infinite unions.
+        </p>
+        <p>
+          Conditional probability rescales the measure to a known event:
+          $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \qquad P(B) > 0.$$
+          Bayes’ rule reverses the direction of conditioning, and the law of total probability
+          decomposes an event across a partition.
+        </p>
+        <ul>
+          <li>
+            <strong>Inclusion–exclusion:</strong>
+            $$P\!\Bigl(\bigcup_{i=1}^{n} E_i\Bigr) = \sum_i P(E_i) - \sum_{i\lt j} P(E_i \cap E_j) + \sum_{i\lt j\lt k} P(E_i \cap E_j \cap E_k) - \cdots$$
+          </li>
+          <li>
+            <strong>Chain rule:</strong>
+            $P(\bigcap_{i=1}^{n} E_i) = P(E_1)\, P(E_2 \mid E_1)\, P(E_3 \mid E_1 \cap E_2) \cdots P(E_n \mid E_1 \cap \cdots \cap E_{n-1})$
+          </li>
+          <li>
+            <strong>Law of total probability:</strong>
+            $P(F) = \sum_i P(F \mid E_i)\, P(E_i)$; e.g. $P(A) = P(A \mid B)\,P(B) + P(A \mid B^c)\,P(B^c)$.
+          </li>
+          <li>
+            <strong>Independence:</strong> $E \perp F \iff P(E \cap F) = P(E)\, P(F)$.
+          </li>
+          <li>
+            <strong>Bayes:</strong>
+            $$P(E_j \mid F) = \frac{P(F \mid E_j)\, P(E_j)}{\sum_i P(F \mid E_i)\, P(E_i)}.$$
+          </li>
+          <li>
+            <strong>Geometric series (useful for “first success” events):</strong>
+            $\sum_{k=0}^{n} r^k = \dfrac{1 - r^{n+1}}{1 - r}$, and $\sum_{k=0}^{\infty} r^k = \dfrac{1}{1 - r}$ for $|r| \lt 1$.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Random variables</h2>
+        <p>
+          A random variable $X : \Omega \to \mathbb{R}$ is a measurable function that turns
+          outcomes into numbers. Its distribution is summarized by the cumulative distribution
+          function $F(x) = P(X \le x)$, which is non-decreasing, right-continuous, and has limits
+          $0$ and $1$.
+        </p>
+        <p>
+          Discrete variables carry a probability mass function $p(x) = P(X = x)$; absolutely
+          continuous variables carry a density $f$ with
+          $$P(X \in A) = \int_A f(x)\, dx, \qquad f(x) = \frac{dF(x)}{dx}.$$
+          Joint, marginal, and conditional distributions extend the same ideas to random vectors,
+          with independence meaning the joint factors into marginals.
+        </p>
+
+        <h3 style="font-family: var(--font-display); font-size: 1rem; margin: 1rem 0 0.5rem; color: var(--text)">Discrete families</h3>
+        <ul>
+          <li>
+            <strong>Bernoulli</strong> $X \sim \operatorname{Bern}(p)$: $f(1) = p,\ f(0) = 1 - p$;
+            $E[X] = p,\ \operatorname{Var}(X) = p(1 - p)$.
+          </li>
+          <li>
+            <strong>Binomial</strong> $X \sim \operatorname{Bin}(n, p)$:
+            $f(x) = \binom{n}{x} p^x (1 - p)^{n-x}$; $E[X] = np,\ \operatorname{Var}(X) = np(1 - p)$.
+            Sums of independent Binomials with the same $p$ add: $\operatorname{Bin}(n_1, p) + \operatorname{Bin}(n_2, p) = \operatorname{Bin}(n_1 + n_2, p)$.
+          </li>
+          <li>
+            <strong>Geometric</strong> $X \sim \operatorname{Geom}(p)$ (trial of first success):
+            $f(x) = (1 - p)^{x-1} p$; $E[X] = 1/p,\ \operatorname{Var}(X) = (1 - p)/p^2$.
+          </li>
+          <li>
+            <strong>Negative Binomial</strong> $X \sim \operatorname{NB}(r, p)$ (trial of $r$th success):
+            $f(x) = \binom{x-1}{r-1} (1 - p)^{x-r} p^r$; $E[X] = r/p,\ \operatorname{Var}(X) = r(1 - p)/p^2$.
+          </li>
+          <li>
+            <strong>Hypergeometric</strong> $X \sim \operatorname{HG}(N, K, n)$ (draw $n$ without replacement from $N$, of which $K$ are successes):
+            $f(x) = \dfrac{\binom{K}{x}\binom{N - K}{n - x}}{\binom{N}{n}}$; $E[X] = n K / N$.
+          </li>
+          <li>
+            <strong>Poisson</strong> $X \sim \operatorname{Poisson}(\lambda)$:
+            $f(x) = \dfrac{e^{-\lambda} \lambda^x}{x!}$; $E[X] = \operatorname{Var}(X) = \lambda$. Independent Poissons add: $\operatorname{Poisson}(\lambda_x) + \operatorname{Poisson}(\lambda_y) = \operatorname{Poisson}(\lambda_x + \lambda_y)$.
+          </li>
+        </ul>
+
+        <h3 style="font-family: var(--font-display); font-size: 1rem; margin: 1rem 0 0.5rem; color: var(--text)">Continuous families</h3>
+        <ul>
+          <li>
+            <strong>Uniform</strong> $X \sim \operatorname{Unif}(a, b)$:
+            $f(x) = \tfrac{1}{b - a}$; $F(x) = \tfrac{x - a}{b - a}$;
+            $E[X] = \tfrac{a + b}{2},\ \operatorname{Var}(X) = \tfrac{(b - a)^2}{12}$.
+          </li>
+          <li>
+            <strong>Exponential</strong> $X \sim \operatorname{Exp}(\lambda)$ (waiting time for one event):
+            $f(x) = \lambda e^{-\lambda x}$, $F(x) = 1 - e^{-\lambda x}$ for $x \ge 0$;
+            $E[X] = 1/\lambda,\ \operatorname{Var}(X) = 1/\lambda^2$.
+          </li>
+          <li>
+            <strong>Gamma</strong> $X \sim \operatorname{Gamma}(\alpha, \lambda)$ (waiting time for $\alpha$ events):
+            $f(x) = \dfrac{\lambda^{\alpha}}{\Gamma(\alpha)}\, x^{\alpha - 1} e^{-\lambda x}$;
+            $E[X] = \alpha/\lambda,\ \operatorname{Var}(X) = \alpha/\lambda^2$. For integer $\alpha$, $\Gamma(\alpha) = (\alpha - 1)!$.
+          </li>
+          <li>
+            <strong>Normal</strong> $X \sim N(\mu, \sigma^2)$:
+            $f(x) = \dfrac{1}{\sqrt{2\pi}\,\sigma} \exp\!\left(-\dfrac{(x - \mu)^2}{2\sigma^2}\right)$;
+            $E[X] = \mu,\ \operatorname{Var}(X) = \sigma^2$. Affine closure:
+            $Y = \alpha X + \beta \implies Y \sim N(\alpha \mu + \beta,\ \alpha^2 \sigma^2)$.
+          </li>
+        </ul>
+
+        <h3 style="font-family: var(--font-display); font-size: 1rem; margin: 1rem 0 0.5rem; color: var(--text)">Jointly distributed variables</h3>
+        <ul>
+          <li>
+            Joint CDF $F_{X,Y}(a, b) = P(X \le a, Y \le b)$, with marginals
+            $F_X(a) = F_{X,Y}(a, \infty)$ and $F_Y(b) = F_{X,Y}(\infty, b)$.
+          </li>
+          <li>
+            Discrete marginal: $f_X(x) = \sum_y f_{X,Y}(x, y)$;
+            continuous marginal: $f_X(x) = \int_{-\infty}^{\infty} f_{X,Y}(x, y)\, dy$.
+          </li>
+          <li>
+            Independence: $f_{X,Y}(x, y) = f_X(x)\, f_Y(y)$, equivalently the CDF factors. Under
+            independence $E[g(X)\, h(Y)] = E[g(X)]\, E[h(Y)]$.
+          </li>
+          <li>
+            Extremes of i.i.d. samples with CDF $F$:
+            $P(\max_i X_i \le m) = F(m)^n,\ P(\min_i X_i \le m) = 1 - (1 - F(m))^n.$
+          </li>
+          <li>
+            Change of variables:
+            $f_{Y_1, Y_2}(y_1, y_2) = f_{X_1, X_2}(x_1, x_2)\,\left|\det \dfrac{\partial(x_1, x_2)}{\partial(y_1, y_2)}\right|.$
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Expectation</h2>
+        <p>
+          Expectation is the integral of a random variable against its distribution:
+          $$E[X] = \int x\, dF(x).$$
+          It is linear—$E[aX + bY] = a\, E[X] + b\, E[Y]$—regardless of dependence, which makes
+          it the workhorse for reasoning about averages.
+        </p>
+        <p>
+          Variance
+          $$\operatorname{Var}(X) = E\!\left[(X - E[X])^2\right] = E[X^2] - (E[X])^2$$
+          measures spread; if $\operatorname{Var}(X) = 0$ then $X = E[X]$ almost surely.
+          Covariance
+          $$\operatorname{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]\, E[Y]$$
+          measures co-movement and vanishes when $X \perp Y$ (but not conversely). For sums,
+          $$\operatorname{Var}\!\Bigl(\sum_{i=1}^{n} X_i\Bigr) = \sum_{i=1}^{n} \operatorname{Var}(X_i) + \sum_{i \ne j} \operatorname{Cov}(X_i, X_j).$$
+        </p>
+        <p>
+          The law of the unconscious statistician gives $E[g(X)] = \int g(x)\, dF(x)$, and the tower
+          property $E[X] = E\!\left[E[X \mid Y]\right]$ lets us compute expectations by conditioning.
+          For an i.i.d. sample with mean $\mu$ and variance $\sigma^2$,
+          $E[\bar{X}] = \mu$ and $\operatorname{Var}(\bar{X}) = \sigma^2/n$.
+        </p>
+
+        <h3 style="font-family: var(--font-display); font-size: 1rem; margin: 1rem 0 0.5rem; color: var(--text)">Moment generating functions</h3>
+        <p>
+          The MGF $\varphi(t) = E[e^{tX}]$ encodes all moments in one object:
+          $$\varphi(t) = \sum_{n=0}^{\infty} \frac{E[X^n]}{n!}\, t^n, \qquad
+          \left.\frac{\partial^n \varphi(t)}{\partial t^n}\right|_{t = 0} = E[X^n].$$
+          When $\varphi$ exists in a neighborhood of $0$ it determines the distribution uniquely.
+        </p>
+        <ul>
+          <li>Conditional expectation as the best mean-square predictor</li>
+          <li>Jensen’s inequality: $\varphi(E[X]) \le E[\varphi(X)]$ for convex $\varphi$</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Conditioning and the law of total variance</h2>
+        <p>
+          Conditioning is the main tool for computing expectations of complicated variables: peel
+          off one source of randomness, compute given it, then average back. The <strong>tower
+          property</strong> $E[X] = E\!\left[E[X \mid Y]\right]$ has a variance counterpart, the
+          <strong>law of total variance</strong>:
+          $$\operatorname{Var}(X) = \underbrace{E\!\left[\operatorname{Var}(X \mid Y)\right]}_{\text{within-}Y\text{ noise}}
+          + \underbrace{\operatorname{Var}\!\left(E[X \mid Y]\right)}_{\text{between-}Y\text{ signal}}.$$
+          The split into within-group and between-group variability is exactly what one-way ANOVA
+          estimates.
+        </p>
+        <p>
+          <em>Worked example (random sum).</em> Let $N \sim \operatorname{Poisson}(\lambda)$ count
+          claims and $X = \sum_{i=1}^{N} Y_i$ their total, with $Y_i$ i.i.d. mean $\mu$, variance
+          $\sigma^2$, independent of $N$. Then
+          $$E[X] = E[N]\, \mu = \lambda\mu, \qquad
+          \operatorname{Var}(X) = E[N]\,\sigma^2 + \operatorname{Var}(N)\,\mu^2 = \lambda(\sigma^2 + \mu^2).$$
+          These are Wald's identities, and they fall straight out of the two laws above.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Order statistics</h2>
+        <p>
+          Sorting an i.i.d. sample $X_1, \ldots, X_n$ (density $f$, CDF $F$) gives the order
+          statistics $X_{(1)} \le \cdots \le X_{(n)}$. The extremes generalize the max/min laws
+          above, and every rank has a clean density:
+          $$f_{X_{(k)}}(x) = \frac{n!}{(k-1)!\,(n-k)!}\, F(x)^{k-1}\,\bigl(1 - F(x)\bigr)^{n-k} f(x).$$
+          The combinatorial factor counts the ways to place $k-1$ observations below $x$, one at
+          $x$, and $n-k$ above. The sample median (rank $k = (n+1)/2$) and the range
+          $X_{(n)} - X_{(1)}$ are order-statistic functionals; for a $\operatorname{Unif}(0,1)$
+          sample, $X_{(k)} \sim \operatorname{Beta}(k,\, n-k+1)$ with mean $k/(n+1)$.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Sums, convolutions, and the multivariate normal</h2>
+        <p>
+          The distribution of $S = X + Y$ for independent $X, Y$ is a convolution,
+          $f_S(s) = \int f_X(x)\, f_Y(s - x)\, dx$, but MGFs turn convolution into multiplication:
+          $$\varphi_{X+Y}(t) = \varphi_X(t)\,\varphi_Y(t) \quad (X \perp Y).$$
+          This is the fastest route to the “stability” facts on the families above—independent
+          Normals, Poissons, and same-$p$ Binomials each add within their family.
+        </p>
+        <p>
+          A random vector $\mathbf{X} \sim N(\boldsymbol\mu, \Sigma)$ has density
+          $$f(\mathbf{x}) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}}
+          \exp\!\left(-\tfrac{1}{2}(\mathbf{x} - \boldsymbol\mu)^\top \Sigma^{-1} (\mathbf{x} - \boldsymbol\mu)\right),$$
+          where $\Sigma$ is the covariance matrix ($\Sigma_{ij} = \operatorname{Cov}(X_i, X_j)$) and
+          the correlation is $\rho_{ij} = \Sigma_{ij}/\sqrt{\Sigma_{ii}\Sigma_{jj}} \in [-1, 1]$. Two
+          properties make it central: any affine map $A\mathbf{X} + b$ is again Normal, and for the
+          Gaussian—uniquely—zero covariance implies independence. Marginals and conditionals of a
+          multivariate Normal are Normal, which underlies linear regression and the Kalman filter.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>The Poisson process</h2>
+        <p>
+          The Poisson process ties together three of the families above into one story about
+          “random events in time.” If events arrive at rate $\lambda$ with independent, stationary
+          increments, then the count in an interval of length $t$ is
+          $N(t) \sim \operatorname{Poisson}(\lambda t)$, the waiting time to the first event is
+          $\operatorname{Exp}(\lambda)$, and the waiting time to the $k$th event is
+          $\operatorname{Gamma}(k, \lambda)$—the memorylessness of the Exponential is what makes the
+          increments independent.
+        </p>
+        <ul>
+          <li>
+            <strong>Superposition:</strong> merging independent Poisson processes of rates
+            $\lambda_1, \lambda_2$ gives a Poisson process of rate $\lambda_1 + \lambda_2$.
+          </li>
+          <li>
+            <strong>Thinning:</strong> keeping each event independently with probability $p$ yields
+            a Poisson process of rate $\lambda p$.
+          </li>
+          <li>
+            <strong>Conditional uniformity:</strong> given $N(t) = n$, the $n$ arrival times are
+            distributed like the order statistics of $n$ i.i.d. $\operatorname{Unif}(0, t)$ points.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Inequalities</h2>
+        <p>
+          Inequalities bound probabilities and expectations when exact distributions are out of
+          reach. They are the glue that turns moment information into tail control, and tail
+          control into convergence.
+        </p>
+        <ul>
+          <li>
+            <strong>Markov:</strong> for $X \ge 0$ and $a > 0$,
+            $$P(X \ge a) \le \frac{E[X]}{a}.$$
+          </li>
+          <li>
+            <strong>Chebyshev:</strong> for any $k > 0$,
+            $$P(|X - \mu| \ge k) \le \frac{\sigma^2}{k^2}.$$
+          </li>
+          <li>
+            <strong>One-sided Chebyshev (Cantelli):</strong>
+            $$P(X - \mu \ge k) \le \frac{\sigma^2}{\sigma^2 + k^2}, \qquad k > 0.$$
+          </li>
+          <li>
+            <strong>Cauchy–Schwarz:</strong> $(E[YZ])^2 \le E[Y^2]\, E[Z^2]$.
+          </li>
+          <li>
+            <strong>Jensen:</strong> for convex $f$, $E[f(X)] \ge f(E[X])$; concave flips the
+            direction. (Convex $\cup$, concave $\cap$.)
+          </li>
+          <li>
+            <strong>Hoeffding:</strong> sub-Gaussian tail bound for bounded, independent sums—
+            foundational for concentration.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Convergence of random variables</h2>
+        <p>
+          Because random variables are functions, they can converge in several inequivalent senses,
+          and picking the right mode matters for what a limit actually says.
+        </p>
+        <ul>
+          <li>
+            <strong>Almost surely:</strong> $P(X_n \to X) = 1$—convergence happens on the full
+            probability set.
+          </li>
+          <li>
+            <strong>In probability:</strong> $P(|X_n - X| > \varepsilon) \to 0$ for every
+            $\varepsilon > 0$.
+          </li>
+          <li>
+            <strong>In $L^p$:</strong> $E[\,|X_n - X|^p\,] \to 0$, strongest when $p$ is large.
+          </li>
+          <li>
+            <strong>In distribution:</strong> $F_n(x) \to F(x)$ at continuity points of $F$—only
+            the laws agree, not the variables.
+          </li>
+        </ul>
+        <p>
+          Almost sure and $L^p$ convergence imply convergence in probability, which implies
+          convergence in distribution; the reverse directions fail in general.
+        </p>
+        <p>
+          <strong>Law of large numbers</strong> (i.i.d. with $E[X_i] = \mu$):
+          $$\text{WLLN:}\quad P(|\bar{X} - \mu| \ge \varepsilon) \to 0, \qquad
+          \text{SLLN:}\quad P\!\left(\lim_{n \to \infty} \bar{X} = \mu\right) = 1.$$
+          SLLN equivalently says, for any $\varepsilon > 0$, $P(|\bar{X} - \mu| \ge \varepsilon \text{ i.o.}) = 0$:
+          after some point the deviation stops happening.
+        </p>
+        <p>
+          <strong>Central limit theorem</strong> (finite variance):
+          $$\frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \;\Rightarrow\; N(0, 1) \quad \text{as } n \to \infty.$$
+          This is why Gaussian approximations show up everywhere in inference.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p><a href="../#library">← Back to Nhi's Universe</a></p>
+    </footer>
+  </body>
+</html>

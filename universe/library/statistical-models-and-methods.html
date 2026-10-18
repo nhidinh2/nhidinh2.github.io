@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Statistical models &amp; methods — Nhi's Library</title>
+    <link rel="stylesheet" href="css/styles.css?v=20261016-profile" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../#library">Nhi's Library</a>
+        <nav class="nav" aria-label="Library navigation"><a href="../#library">← Back to Universe</a></nav>
+      </div>
+    </header>
+    <main id="main">
+      <h1 class="page-title">Statistical models &amp; methods</h1>
+      <p class="page-sub">
+        A model is a deliberate simplification: it names variables, relationships, and error
+        structure so inference and prediction have a target. Methods are the algorithms and
+        diagnostics that fit the model to data responsibly.
+      </p>
+      <section class="content-section">
+        <h2>The linear model</h2>
+        <p>
+          The linear regression model writes the response as a linear combination of predictors plus
+          Gaussian noise:
+          $$y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \varepsilon_i, \qquad
+          \varepsilon_i \stackrel{\text{iid}}{\sim} N(0, \sigma^2),$$
+          or in matrix form $y = X\beta + \varepsilon$ with $X$ the $n \times (p+1)$ design matrix.
+          The Gauss–Markov assumptions are linearity, $E[\varepsilon] = 0$, constant variance
+          (homoscedasticity), and uncorrelated errors.
+        </p>
+        <p>
+          <strong>Ordinary least squares</strong> minimizes $\sum_i (y_i - x_i^\top\beta)^2 =
+          \lVert y - X\beta\rVert^2$, giving the normal equations $X^\top X \hat\beta = X^\top y$ and
+          $$\hat\beta = (X^\top X)^{-1} X^\top y, \qquad
+          \operatorname{Cov}(\hat\beta) = \sigma^2 (X^\top X)^{-1}.$$
+          The fitted values are $\hat y = H y$ with the hat (projection) matrix
+          $H = X(X^\top X)^{-1} X^\top$, and $\hat\sigma^2 = \dfrac{\lVert y - \hat y\rVert^2}{n - p - 1}$
+          is unbiased for $\sigma^2$.
+        </p>
+        <ul>
+          <li>
+            <strong>Gauss–Markov theorem:</strong> among all linear unbiased estimators, OLS has the
+            smallest variance—it is BLUE. Under Normal errors it is also the MLE and fully efficient.
+          </li>
+          <li>
+            <strong>Inference:</strong> $\dfrac{\hat\beta_j - \beta_j}{\operatorname{SE}(\hat\beta_j)}
+            \sim t_{n-p-1}$ gives per-coefficient tests and CIs; the overall $F$-test
+            $F = \dfrac{(\text{SSR}/p)}{(\text{SSE}/(n-p-1))} \sim F_{p,\, n-p-1}$ tests whether any
+            predictor matters.
+          </li>
+          <li>
+            <strong>Fit:</strong> $R^2 = 1 - \text{SSE}/\text{SST}$ is the fraction of variance
+            explained; adjusted $R^2$ penalizes added predictors.
+          </li>
+          <li>
+            <strong>Diagnostics:</strong> residual-vs-fitted plots (linearity, constant variance),
+            Q–Q plots (Normality), leverage $h_{ii}$ and Cook's distance (influence), and variance
+            inflation factors (multicollinearity) keep the linear story honest.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>ANOVA as a linear model</h2>
+        <p>
+          Analysis of variance is regression on categorical predictors coded as indicators. One-way
+          ANOVA with groups $1, \ldots, k$ decomposes the total sum of squares into between- and
+          within-group parts:
+          $$\underbrace{\sum_{ij}(y_{ij} - \bar y)^2}_{\text{SST}} =
+          \underbrace{\sum_i n_i (\bar y_i - \bar y)^2}_{\text{SSB}} +
+          \underbrace{\sum_{ij}(y_{ij} - \bar y_i)^2}_{\text{SSW}}.$$
+          The $F$-statistic $F = \dfrac{\text{SSB}/(k-1)}{\text{SSW}/(n-k)} \sim F_{k-1,\, n-k}$ tests
+          equality of group means $H_0: \mu_1 = \cdots = \mu_k$. Two-way ANOVA adds a second factor
+          and interaction terms; post-hoc procedures (Tukey HSD) control error across pairwise
+          comparisons.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Generalized linear models</h2>
+        <p>
+          When the response is a count, proportion, or category, GLMs keep the linear predictor
+          $\eta_i = x_i^\top\beta$ but connect it to the mean through a link $g$, with variance set by
+          an exponential-family distribution:
+          $$g(\mu_i) = x_i^\top\beta, \qquad \mu_i = E[Y_i].$$
+          Logistic regression (logit link, Bernoulli/Binomial) and Poisson regression (log link,
+          counts) are the canonical cases; fitting is by maximum likelihood via iteratively
+          reweighted least squares, and Wald/score/LR tests carry over. The
+          <a href="categorical-data.html">Categorical data &amp; GLMs</a> page develops this toolkit
+          in full.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Regularization</h2>
+        <p>
+          When $p$ is large or predictors are collinear, OLS variance explodes. Penalized regression
+          shrinks coefficients toward zero, trading a little bias for a large variance reduction:
+          $$\hat\beta_{\text{ridge}} = \arg\min_\beta \Bigl\{\lVert y - X\beta\rVert^2 + \lambda \sum_j \beta_j^2\Bigr\},
+          \qquad
+          \hat\beta_{\text{lasso}} = \arg\min_\beta \Bigl\{\lVert y - X\beta\rVert^2 + \lambda \sum_j |\beta_j|\Bigr\}.$$
+        </p>
+        <ul>
+          <li>
+            <strong>Ridge ($L_2$):</strong> closed form $\hat\beta = (X^\top X + \lambda I)^{-1} X^\top y$;
+            shrinks all coefficients smoothly, stabilizing collinear designs, but keeps every
+            predictor.
+          </li>
+          <li>
+            <strong>Lasso ($L_1$):</strong> the corner of the constraint region drives some
+            coefficients exactly to zero, doing selection and estimation at once.
+          </li>
+          <li>
+            <strong>Elastic net:</strong> mixes both penalties to select among correlated groups of
+            predictors. The tuning parameter $\lambda$ is chosen by cross-validation.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Multilevel and hierarchical structure</h2>
+        <p>
+          When observations cluster—students in schools, repeated measures on people—the errors
+          within a cluster are correlated, and a mixed model adds a random effect per group:
+          $$y_{ij} = x_{ij}^\top\beta + u_j + \varepsilon_{ij}, \qquad
+          u_j \sim N(0, \tau^2), \quad \varepsilon_{ij} \sim N(0, \sigma^2).$$
+          The group intercept $u_j$ induces intraclass correlation
+          $\rho = \tau^2 / (\tau^2 + \sigma^2)$. Estimating $u_j$ as a compromise between the group
+          mean and the global mean is <strong>partial pooling</strong>: it shares strength across
+          groups, shrinking noisy small-group estimates toward the overall fit and avoiding
+          overfitting idiosyncratic clusters.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Modern statistical learning</h2>
+        <p>
+          Flexible methods reduce bias at the cost of variance and interpretability. Expected
+          prediction error decomposes the same way estimators do:
+          $$E\!\left[(y - \hat f(x))^2\right] =
+          \underbrace{\bigl(E[\hat f(x)] - f(x)\bigr)^2}_{\text{bias}^2} +
+          \underbrace{\operatorname{Var}(\hat f(x))}_{\text{variance}} +
+          \underbrace{\sigma^2}_{\text{irreducible}}.$$
+          Choosing model complexity is choosing where to sit on this tradeoff.
+        </p>
+        <ul>
+          <li>
+            <strong>Cross-validation:</strong> $k$-fold CV estimates out-of-sample error by rotating
+            which fold is held out, giving an honest target for tuning complexity and comparing
+            models.
+          </li>
+          <li>
+            <strong>Trees:</strong> recursive binary splits partition predictor space into
+            piecewise-constant regions—interpretable but high-variance.
+          </li>
+          <li>
+            <strong>Ensembles:</strong> bagging and <em>random forests</em> average many
+            decorrelated trees to cut variance; <em>boosting</em> (gradient boosting) fits trees
+            sequentially to residuals to cut bias.
+          </li>
+          <li>
+            <strong>Validation that travels:</strong> calibration and external validation on fresh
+            data translate in-sample fit into claims that generalize to new environments.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2><a href="time-series.html" style="text-decoration: none">Time series →</a></h2>
+        <p>
+          When observations arrive in order, their dependence becomes a feature rather than a
+          nuisance. Stationarity, AR/MA/ARMA models, ACF/PACF identification, Yule–Walker and
+          CLS/MLE estimation, ARIMA/SARIMA, and forecasting all live on a dedicated page.
+        </p>
+        <p><a href="time-series.html">Open time series →</a></p>
+      </section>
+
+      <section class="content-section">
+        <h2><a href="categorical-data.html" style="text-decoration: none">Categorical data &amp; GLMs →</a></h2>
+        <p>
+          Count distributions, two-by-two tables (odds ratios, relative risk, Simpson’s paradox),
+          independence tests, and the full GLM toolkit—logistic and Poisson regression, Wald /
+          score / LR tests, residuals and goodness-of-fit, and quasi-likelihood for overdispersion.
+        </p>
+        <p><a href="categorical-data.html">Open categorical data &amp; GLMs →</a></p>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p><a href="../#library">← Back to Nhi's Universe</a></p>
+    </footer>
+  </body>
+</html>

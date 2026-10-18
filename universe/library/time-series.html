@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time series — Nhi's Library</title>
+    <link rel="stylesheet" href="css/styles.css?v=20261016-profile" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../#library">Nhi's Library</a>
+        <nav class="nav" aria-label="Library navigation"><a href="../#library">← Back to Universe</a></nav>
+      </div>
+    </header>
+    <main id="main">
+      <p class="page-sub" style="margin-bottom: 0.75rem">
+        <a href="statistical-models-and-methods.html">← Statistical models &amp; methods</a>
+      </p>
+      <h1 class="page-title">Time series</h1>
+      <p class="page-sub">
+        When observations arrive in order, their dependence becomes a feature rather than a nuisance.
+        Time-series models describe that dependence explicitly so we can estimate, diagnose, and
+        forecast.
+      </p>
+
+      <section class="content-section">
+        <h2>Stationarity</h2>
+        <p>
+          A time series $\{X_t\}$ is stationary when the mean $\mu_t$ is constant and the
+          autocovariance $\gamma(s, t)$ depends on $s, t$ only through $|s - t|$. Stationarity is
+          what lets us estimate covariances from a single realization.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Trend, differencing, and random walks</h2>
+        <p>
+          Most raw series are not stationary—they trend or drift. The <strong>random walk</strong>
+          $X_t = X_{t-1} + W_t$ is the canonical example: its variance $\operatorname{Var}(X_t) = t\,\sigma_w^2$
+          grows without bound and its ACF decays only linearly, the classic signature of a
+          <strong>unit root</strong> (a root of $\phi(B)$ on the unit circle). Two cures:
+        </p>
+        <ul>
+          <li>
+            <strong>Differencing:</strong> $\nabla X_t = (1 - B) X_t = X_t - X_{t-1}$ removes a
+            linear trend and turns a random walk into white noise; $\nabla^d$ removes a degree-$d$
+            polynomial trend. Seasonal differencing $\nabla_s X_t = (1 - B^s) X_t$ removes a repeating
+            period-$s$ pattern.
+          </li>
+          <li>
+            <strong>Detrending by regression:</strong> fit $X_t = \beta_0 + \beta_1 t + Y_t$ and model
+            the stationary residual $Y_t$. Prefer this when the trend is genuinely deterministic;
+            prefer differencing when it is stochastic.
+          </li>
+        </ul>
+        <p>
+          Formal check: the augmented Dickey–Fuller test has $H_0$ = “unit root present” (needs
+          differencing) against stationarity. Over-differencing is a real cost—it injects an MA unit
+          root and inflates variance—so difference only until the ACF stops decaying slowly.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>AR, MA, and ARMA</h2>
+        <p>
+          <strong>AR(p):</strong>
+          $$X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-p} + W_t, \qquad W_t \sim \operatorname{wn}(0, \sigma_w^2).$$
+          With the backshift operator this becomes $\phi(B)\, X_t = W_t$ where
+          $\phi(B) = 1 - \phi_1 B - \cdots - \phi_p B^p$. Causality requires all roots of $\phi(B)$
+          to lie outside the unit circle, giving
+          $$X_t = \sum_{j=0}^{\infty} \psi_j W_{t-j}, \qquad \psi_0 = 1,\ \psi_j = \phi_1 \psi_{j-1} + \cdots + \phi_p \psi_{j-p}.$$
+          For AR(1):
+          $$\gamma(h) = \frac{\phi^{\,h} \sigma_w^2}{1 - \phi^2}, \qquad \rho(h) = \phi^{\,h}.$$
+        </p>
+        <p>
+          <strong>MA(q):</strong>
+          $$X_t = W_t + \theta_1 W_{t-1} + \cdots + \theta_q W_{t-q} = \theta(B)\, W_t.$$
+          Invertibility (all roots of $\theta(B)$ outside the unit circle) gives
+          $W_t = \pi(B)\, X_t$ with
+          $$\pi_0 = 1, \qquad \pi_j = -\bigl[\theta_1 \pi_{j-1} + \cdots + \theta_q \pi_{j-q}\bigr].$$
+        </p>
+        <p>
+          <strong>ARMA(p, q):</strong> $\phi(B)\, X_t = \theta(B)\, W_t$, with the
+          parameter-redundancy rule that $\phi(B)$ and $\theta(B)$ share no common factors. The
+          $\psi$ and $\pi$ weights satisfy
+          $$\psi_j = \theta_j + \phi_1 \psi_{j-1} + \cdots + \phi_p \psi_{j-p},$$
+          $$\pi_j = -\phi_j - \bigl[\theta_1 \pi_{j-1} + \cdots + \theta_q \pi_{j-q}\bigr].$$
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>ACF and PACF</h2>
+        <p>
+          For a causal ARMA(p, q),
+          $$\gamma(h) = \sum_{j=1}^{p} \phi_j\, \gamma(h - j) \quad \text{for } h > q,$$
+          with the MA cross term $\sigma_w^2 \sum_{j=h}^{q} \theta_j \psi_{j-h}$ added when
+          $0 \le h \le q$. If $X_t = \sum_{j \ge 0} \psi_j W_{t-j}$ then
+          $$\gamma(h) = \sigma_w^2 \sum_{j=0}^{\infty} \psi_j\, \psi_{j+h}, \qquad
+          \rho(h) = \frac{\sum_{j \ge 0} \psi_j \psi_{j+h}}{\sum_{j \ge 0} \psi_j^2}.$$
+        </p>
+        <p>
+          The partial autocorrelation $\phi_{hh}$ is the correlation between $X_{t+h}$ and $X_t$
+          after removing the linear effect of the intermediate lags. For AR(p) the PACF cuts off
+          after lag $p$; for MA(q) the ACF cuts off after lag $q$.
+        </p>
+        <ul>
+          <li>AR(p): ACF tails off, PACF cuts off at $p$</li>
+          <li>MA(q): ACF cuts off at $q$, PACF tails off</li>
+          <li>ARMA(p, q): both tail off</li>
+          <li>Large-sample bands: $\hat{\rho}(h) \sim N(0, 1/n)$ beyond the cutoff</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Estimation</h2>
+        <p>
+          <strong>Method of moments (Yule–Walker for AR(p)):</strong>
+          $$\hat{R}_p\, \hat{\phi} = \hat{\rho}_p, \qquad
+          \hat{\phi} = \hat{R}_p^{-1} \hat{\rho}_p, \qquad
+          \hat{\sigma}_w^2 = \hat{\gamma}(0)\bigl[\, 1 - \hat{\rho}_p^{\!\top} \hat{\phi}\, \bigr].$$
+          For MA(1), $\hat{\rho}(1) = \hat{\theta} / (1 + \hat{\theta}^2)$ has a real root only when
+          $|\hat{\rho}(1)| \lt 1/2$.
+        </p>
+        <p>
+          <strong>Conditional least squares / MLE:</strong> minimize
+          $S_c = \sum_{t=p+1}^{n} W_t(\phi)^2$. For AR(p) the CLS estimator reduces to OLS,
+          $$\hat{\phi} = (X'X)^{-1} X'y, \qquad
+          \hat{\sigma}^2 = \frac{1}{n - p}\sum_{t=p+1}^{n} W_t(\hat{\phi})^2.$$
+          For MA and ARMA the innovations are nonlinear in the parameters, so Gauss–Newton is used:
+          $$\hat{\theta}_{\ell+1} = \hat{\theta}_{\ell}
+            + \Bigl[\sum_t \dot{W}_t \dot{W}_t^{\!\top}\Bigr]^{-1}
+              \Bigl[\sum_t \dot{W}_t\, W_t\Bigr],
+            \qquad \dot{W}_t = -\frac{\partial W_t}{\partial \theta}.$$
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>ARIMA and SARIMA</h2>
+        <p>
+          <strong>ARIMA(p, d, q):</strong>
+          $$\phi(B)\,(1 - B)^d X_t = \alpha + \theta(B)\, W_t, \qquad
+          \alpha = \mu\,(1 - \phi_1 - \cdots - \phi_p).$$
+          Differencing $d$ times turns a trending series into a stationary one.
+        </p>
+        <p>
+          <strong>SARIMA$(p, d, q) \times (P, D, Q)_s$:</strong>
+          $$\Phi(B^s)\, \phi(B)\, (1 - B)^d (1 - B^s)^D X_t = \mu + \Theta(B^s)\, \theta(B)\, W_t,$$
+          adding a seasonal layer at period $s$.
+        </p>
+        <ul>
+          <li>Increase $d$ until the ACF stops decaying slowly; increase $D$ until seasonal spikes disappear.</li>
+          <li>Read non-seasonal $(p, q)$ from lags $1, \ldots, s-1$; seasonal $(P, Q)$ from lags $s, 2s, \ldots$</li>
+          <li>Model selection: lowest AIC/BIC, no significant residual-ACF spikes, Ljung–Box $p > 0.05$, roughly normal Q–Q plot.</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Forecasting</h2>
+        <p>
+          The minimum-MSE forecast is the conditional expectation
+          $$\hat{X}_{n+m \mid n} = E[X_{n+m} \mid X_n, X_{n-1}, \ldots].$$
+          For AR(1),
+          $$\hat{X}_{n+m \mid n} = \phi^{m} X_n, \qquad
+          P^{\,n}_{n+m} = \bigl(1 + \phi^2 + \cdots + \phi^{\,2(m-1)}\bigr)\sigma_w^2.$$
+        </p>
+        <p>
+          The best linear predictor on the last $p$ observations solves the Toeplitz system
+          $\Gamma_p\, \phi^{(m)} = \gamma_m$, giving
+          $$\hat{X}_{n+m \mid n} = \sum_{j=1}^{p} \phi^{(m)}_{nj}\, X_{n+1-j}, \qquad
+          \operatorname{MSPE}(m) = \gamma(0) - \phi^{(m)\top} \gamma_m.$$
+          For invertible models the infinite-past forecast
+          $\tilde{X}_{n+1} = -\sum_{j \ge 1} \pi_j X_{n+1-j}$ has error $W_{n+1}$ and MSPE
+          $\sigma_w^2$.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Worked identification example</h2>
+        <p>
+          Box–Jenkins modeling is a loop: <em>identify</em> orders from the correlograms,
+          <em>estimate</em> parameters, <em>diagnose</em> residuals, then forecast. Suppose a
+          differenced, mean-centered series shows this pattern:
+        </p>
+        <ul>
+          <li>Sample ACF: a single spike at lag 1 ($\hat\rho(1) \approx -0.4$), everything else inside the $\pm 2/\sqrt{n}$ bands.</li>
+          <li>Sample PACF: decaying, alternating spikes at lags 1, 2, 3, …</li>
+        </ul>
+        <p>
+          ACF cutting off at lag 1 while the PACF tails off is the MA(1) signature, so we fit
+          $X_t = W_t + \theta_1 W_{t-1}$. The moment estimate solves
+          $\hat\rho(1) = \hat\theta_1/(1 + \hat\theta_1^2)$; since $|\hat\rho(1)| = 0.4 \lt 1/2$ a
+          real invertible root exists. Had we started from an undifferenced series, the slowly
+          decaying ACF would have told us to difference first—so the full call here is ARIMA(0, 1, 1),
+          which is equivalent to simple exponential smoothing below.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Diagnostics and model checking</h2>
+        <p>
+          A good model leaves residuals that look like white noise. After fitting, examine
+          $\hat W_t = X_t - \hat X_{t \mid t-1}$:
+        </p>
+        <ul>
+          <li>
+            <strong>Residual ACF:</strong> no spikes should escape the $\pm 2/\sqrt{n}$ bands; a
+            surviving spike at lag $s$ signals missed seasonality.
+          </li>
+          <li>
+            <strong>Ljung–Box test:</strong> the portmanteau statistic
+            $$Q = n(n+2) \sum_{h=1}^{H} \frac{\hat\rho_{\hat W}(h)^2}{n - h} \;\sim\; \chi^2_{H - p - q}$$
+            tests whether the first $H$ residual autocorrelations are jointly zero. Want a
+            <em>large</em> $p$-value ($p \gt 0.05$): failing to reject means the residuals are
+            adequately white.
+          </li>
+          <li>
+            <strong>Normality:</strong> a roughly straight residual Q–Q plot supports the Gaussian
+            forecast intervals.
+          </li>
+          <li>
+            <strong>Selection:</strong> among adequate models, prefer the lowest AIC/BIC—BIC
+            penalizes parameters more heavily and favors parsimony.
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>Exponential smoothing</h2>
+        <p>
+          When a full ARIMA fit is overkill, exponential smoothing gives robust forecasts by
+          weighting recent observations more heavily. <strong>Simple exponential smoothing</strong>
+          updates a level:
+          $$\hat X_{t+1} = \alpha X_t + (1 - \alpha)\hat X_t
+          = \alpha \sum_{j \ge 0}(1 - \alpha)^j X_{t-j}, \qquad 0 \lt \alpha \lt 1,$$
+          which is exactly the optimal forecast of an ARIMA(0, 1, 1) model. Two extensions handle
+          richer structure:
+        </p>
+        <ul>
+          <li>
+            <strong>Holt's linear trend:</strong> smooth a level and a slope separately, so forecasts
+            extrapolate along a trend rather than flatlining.
+          </li>
+          <li>
+            <strong>Holt–Winters:</strong> add a third recursion for a seasonal component (additive or
+            multiplicative), the standard quick tool for seasonal series.
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p><a href="statistical-models-and-methods.html">← Back to Statistical models &amp; methods</a></p>
+    </footer>
+  </body>
+</html>
