@@ -91,10 +91,9 @@ button, a { touch-action: manipulation; }
 .visit:active .visit-play { transform: translateY(4px); box-shadow: 0 2px 0 #007a4d; }
 @keyframes visitGlow { 0%, 100% { box-shadow: 0 0 0 0 #00b06f00; } 50% { box-shadow: 0 0 0 6px #00b06f55, 0 0 32px #00b06f44; } }
 
-.universe-section { margin-top: 16px; }
 
 /* contact row */
-.contact { margin-top: 6px; padding: 22px 0 8px; border-top: 1px solid #333; }
+.contact { margin: 0; padding: 0; }
 .contact h2 { font-size: 26px; line-height: 1.4; margin-bottom: 14px; }
 .contact-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
 .contact-links a { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 99px; background: var(--panel); border: 1px solid #ffffff1a; text-decoration: none; font-size: 18px; transition: background .18s ease, transform .18s ease; }
@@ -119,10 +118,10 @@ body:has(dialog[open]) { overflow: hidden; }
   body { font-size: 16px; line-height: 1.45; }
   .profile {
     min-height: 100svh;
-    padding: 8px 24px;
+    padding: 20px 24px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 20px;
   }
   .profile > * { flex: 0 0 auto; }
   .head-card { flex-wrap: nowrap; gap: 16px; min-height: 88px; }
@@ -133,10 +132,11 @@ body:has(dialog[open]) { overflow: hidden; }
   .dot { flex-basis: 12px; height: 12px; }
   .title { margin-top: 5px; font-size: 17px; line-height: 1.4; }
 
-  .about { padding: 12px 17px; }
+  .about { padding: 16px 18px; }
   .about h2 { font-size: 22px; line-height: 1.3; }
   .bio-copy { margin-top: 7px; display: block; }
-  .bio-copy p { max-width: none; margin: 0 0 6px; font-size: 15px; line-height: 1.4; }
+  .bio-copy p { max-width: none; margin: 0 0 8px; font-size: 15px; line-height: 1.45; }
+  .bio-copy p:last-child { margin-bottom: 0; }
   .bio-email { margin-top: 0 !important; }
   .research-interests { margin-top: 7px; padding-top: 7px; }
   .research-interests h3 { font-size: 15px; line-height: 1.3; }
@@ -145,7 +145,7 @@ body:has(dialog[open]) { overflow: hidden; }
 
   .creations-section { grid-column: 1; min-width: 0; }
   .badges-section { grid-column: 2; min-width: 0; }
-  .row-title { margin: 0 0 5px; }
+  .row-title { margin: 0 0 10px; }
   .row-title h2 { font-size: 20px; line-height: 1.3; }
   .row-title a { font-size: 15px; }
   .creation-button { min-height: 60px; gap: 12px; padding: 8px 15px; }
@@ -158,13 +158,13 @@ body:has(dialog[open]) { overflow: hidden; }
   .badge-icon { width: 40px; height: 40px; margin-bottom: 3px; }
   .badge-icon svg { width: 25px; height: 25px; }
 
-  .contact { margin: 0; padding: 8px 0 0; min-width: 0; display: flex; align-items: center; gap: 18px; }
+  .contact { margin: 0; padding: 0; min-width: 0; display: flex; align-items: center; gap: 18px; }
   .contact h2 { margin: 0; font-size: 20px; line-height: 1.3; }
   .contact-links { display: flex; gap: 8px; }
   .contact-links a { justify-content: center; gap: 6px; min-width: 0; padding: 6px 14px; font-size: 13px; white-space: nowrap; }
   .contact-links svg { width: 17px; height: 17px; flex: 0 0 17px; }
 
-  .universe-section { grid-column: 2; min-width: 0; margin-top: 28px; }
+  .universe-section { min-width: 0; }
   .visit { height: auto; min-height: 90px; gap: 14px; padding: 10px 17px; border-radius: 14px; animation: none; }
   .visit-copy { gap: 4px; max-width: none; }
   .visit-tag { padding: 2px 8px; font-size: 10px; }
