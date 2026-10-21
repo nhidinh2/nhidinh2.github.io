@@ -20,20 +20,14 @@ const CONTENT = {
   profile: {
     handle: "@nhidinh2",
     status: "Online · Chicago",
-    title: "PhD Student · Researcher · Builder",
+    title: "PhD Student · Mathematical Computer Science",
     bio: {
-      intro: "hi, i’m nhi dinh (nee-din)!",
-      education: "i’m a first-year Mathematical Computer Science PhD student at University of Illinois Chicago. before that, i studied Statistics + Computer Science with a Mathematics minor at University of Illinois Urbana-Champaign.",
-      focus: "Probability, Combinatorics, Algorithms, and Machine Learning",
-      focusTail: ", especially where theory and ML meet. i also like building things, experimenting with models, and seeing how the math works in practice.",
-      outside: "outside of research, i enjoy working on random projects and learning new things :)",
+      education: "I’m a first-year Mathematical Computer Science PhD student at the University of Illinois Chicago. Previously, I studied Statistics + Computer Science with a Mathematics minor at the University of Illinois Urbana-Champaign.",
+      focus: "probability, combinatorics, algorithms, and machine learning",
+      focusTail: ". My research studies hypergraphs and algorithmic questions. My applied projects explore information retrieval, AI agent security, and statistical modeling, with an emphasis on reproducible experiments.",
+      outside: "I’ve worked in quantitative research, data development, and financial document question answering.",
       email: "nhidinh2@illinois.edu",
-      researchInterests: [
-        "probability and combinatorics",
-        "algorithms and theoretical CS",
-        "machine learning and representation learning",
-        "statistical modeling and ML systems"
-      ]
+      researchInterests: ["Probability & combinatorics", "Algorithms & theoretical CS", "Machine learning & information retrieval", "Statistical modeling & time series"]
     },
     stats: [
       { value: "2026", label: "Joined PhD", color: "#3a86ff", shade: "#2563c9" },
@@ -54,7 +48,7 @@ const CONTENT = {
       story: "Also completed an M.S. in Mathematical Computer Science in August 2026. Current interests include algorithms, machine learning, and hypergraphs.",
       classes: ["Algorithms", "Machine Learning", "Deep Learning"] },
     { school: "UIUC", full: "University of Illinois Urbana-Champaign", wall: "#e84a27", roof: "#13294b",
-      degree: "B.S. in Computer Science, Statistics, and Mathematics", years: "May 2026", status: "Graduated",
+      degree: "B.S. in Statistics & Computer Science; minor in Mathematics", years: "May 2026", status: "Graduated",
       story: "Graduated with a 3.9/4.0 GPA, Highest Distinction, a Fiddler Innovation Fellowship, and four Dean's List honors.",
       classes: ["Probability Theory", "Applied Bayesian Analysis", "Machine Learning"] }
   ],
@@ -93,18 +87,19 @@ const CONTENT = {
   ],
 
   projects: [
-    { title: "NewsTrace", tag: "Information Retrieval · NLP", color: "#ff4d6d",
-      desc: "A real-time news story tracker that clusters coverage of the same event, preserves source provenance, and measures how embedding compression changes retrieval quality across live and human-judged benchmarks.",
+    /* `title` is the repo name the chat matches on; `name` is the homepage label. */
+    { title: "NewsTrace", name: "News Retrieval System", tag: "Information Retrieval · NLP", color: "#ff4d6d",
+      desc: "Built a system that groups news coverage by event, detects duplicate reporting, and links summaries to their sources. Evaluated search quality, memory use, and query speed on live news and a benchmark with 300 human relevance judgments.",
       stack: ["Python", "Sentence Transformers", "FastAPI", "Streamlit", "SQLite"], github: "https://github.com/nhidinh2/newTrace", demo: "" },
-    { title: "SpecShield", tag: "AI Safety · Agent Security", color: "#ffb703",
-      desc: "A structural trusted monitor for tool-using AI agents that authorizes actions from typed fields, dataflow taint, and approval provenance, with deterministic policies and AgentDojo evaluations.",
-      stack: ["Python", "AgentDojo", "Typed Policies", "pytest"], github: "https://github.com/nhidinh2/specshield", demo: "" },
-    { title: "wave-length", tag: "Market Microstructure · Research", color: "#2ec4b6",
-      desc: "A staged order-book research program building toward a PDE model of price formation, with OFI baselines, a wave/Duhamel response layer, walk-forward testing, and carefully documented negative trading results.",
-      stack: ["Python", "Order-Book Data", "Walk-Forward CV", "Duhamel Kernels"], github: "https://github.com/nhidinh2/wave-length", demo: "" },
-    { title: "Prediction Market Calibration", tag: "Statistics · Forecasting", color: "#3a86ff",
-      desc: "An empirical study of Kalshi calibration across categories and time horizons, with point-in-time microstructure controls, out-of-sample recalibration tests, and an interactive results dashboard.",
-      stack: ["Python", "pandas", "statsmodels", "React", "TypeScript", "Recharts"], github: "https://github.com/nhidinh2/prediction-market-calibration", demo: "https://dist-zeta-jade-85.vercel.app" }
+    { title: "SpecShield", name: "AI Agent Security Monitor", tag: "AI Security · Research Prototype", color: "#ffb703",
+      desc: "Built a monitor that checks proposed AI agent actions against permissions, data flow, and user approvals. Tested prompt injection, legitimate actions blocked by mistake, and unreliable approval signals. Includes an offline demo, evaluation code, and research paper.",
+      stack: ["Python", "AgentDojo", "Policy Engine", "Evaluation"], github: "https://github.com/nhidinh2/specshield", demo: "" },
+    { title: "wave-length", name: "Order Book Price Modeling", tag: "Market Microstructure · Quantitative Research", color: "#2ec4b6",
+      desc: "Built a research pipeline over 72.3 million order book events to study short-term price changes. Compared order flow and wave response models using rolling train and test periods. Simulated execution costs and queue position to distinguish predictive improvements from trading profitability.",
+      stack: ["Python", "Time Series", "Order-Book Data", "Walk-Forward Validation"], github: "https://github.com/nhidinh2/wave-length", demo: "" },
+    { title: "Prediction Market Calibration", tag: "Statistical Modeling · Data Analysis", color: "#3a86ff",
+      desc: "Studied whether Kalshi market prices reflect accurate probabilities across categories and forecast horizons. Built the data pipeline, statistical models, and validation on held-out markets, with an interactive dashboard showing the results and limitations.",
+      stack: ["Python", "pandas", "statsmodels", "React", "TypeScript"], github: "https://github.com/nhidinh2/prediction-market-calibration", demo: "https://dist-zeta-jade-85.vercel.app/" }
   ],
 
   experience: [
