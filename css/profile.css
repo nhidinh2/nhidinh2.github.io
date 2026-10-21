@@ -51,7 +51,7 @@ button, a { touch-action: manipulation; }
 .bio-copy a { color: #e7e7e7; text-underline-offset: 4px; }
 .bio-email { margin-top: 20px !important; }
 .research-interests { margin-top: 25px; padding-top: 21px; border-top: 1px solid #4a4a4a; }
-.research-interests h3 { font-size: 22px; line-height: 1.4; text-transform: lowercase; }
+.research-interests h3 { font-size: 22px; line-height: 1.4; }
 .research-interests ul { margin: 13px 0 0; padding-left: 25px; }
 .research-interests li { margin: 7px 0; font-size: 18px; line-height: 1.5; }
 .row-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 2px 0 14px; }
@@ -90,6 +90,8 @@ button, a { touch-action: manipulation; }
 }
 .visit:active .visit-play { transform: translateY(4px); box-shadow: 0 2px 0 #007a4d; }
 @keyframes visitGlow { 0%, 100% { box-shadow: 0 0 0 0 #00b06f00; } 50% { box-shadow: 0 0 0 6px #00b06f55, 0 0 32px #00b06f44; } }
+
+.universe-section { margin-top: 16px; }
 
 /* contact row */
 .contact { margin-top: 6px; padding: 22px 0 8px; border-top: 1px solid #333; }
@@ -180,7 +182,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .contact-links a { justify-content: center; gap: 6px; min-width: 0; padding: 6px 14px; font-size: 13px; white-space: nowrap; }
   .contact-links svg { width: 17px; height: 17px; flex: 0 0 17px; }
 
-  .universe-section { grid-column: 2; min-width: 0; }
+  .universe-section { grid-column: 2; min-width: 0; margin-top: 28px; }
   .visit { height: auto; min-height: 90px; gap: 14px; padding: 10px 17px; border-radius: 14px; animation: none; }
   .visit-copy { gap: 4px; max-width: none; }
   .visit-tag { padding: 2px 8px; font-size: 10px; }

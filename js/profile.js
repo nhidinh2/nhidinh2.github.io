@@ -11,13 +11,12 @@
   $("status").textContent = P.status;
   $("title").textContent = P.title;
   const bio = P.bio;
+  const groupLinks = bio.groups.map((g) => `<a href="${esc(safe(g.url))}" target="_blank" rel="noopener noreferrer">${esc(g.name)}</a>`).join(" and ");
   $("aboutText").innerHTML = `
-    <p>${esc(bio.education)}</p>
-    <p>I’m interested in <strong>${esc(bio.focus)}</strong>${esc(bio.focusTail)}</p>
-    <p>${esc(bio.outside)}</p>
-    <p class="bio-email"><strong>email:</strong> <a href="mailto:${esc(bio.email)}">${esc(bio.email)}</a></p>
+    <p>${esc(bio.current)}</p>
+    <p>${esc(bio.education)} I am grateful to be part of ${groupLinks} during my time there!</p>
     <section class="research-interests" aria-labelledby="research-interests-title">
-      <h3 id="research-interests-title">Research interests</h3>
+      <h3 id="research-interests-title">Research Interests</h3>
       <ul>${bio.researchInterests.map((interest) => `<li>${esc(interest)}</li>`).join("")}</ul>
     </section>`;
 
@@ -41,7 +40,7 @@
   }).join("");
 
   const creations = [
-    { id: "research", name: "Research Lab", sub: "Papers & discoveries", symbol: "◈" },
+    { id: "research", name: "Publications", sub: "Papers & preprints", symbol: "◈" },
     { id: "projects", name: "Coding Projects", sub: "Things I've built", symbol: "</>" }
   ];
   $("creations").innerHTML = creations.map((c) => `<button class="creation-button" type="button" data-section="${c.id}">
@@ -49,14 +48,6 @@
     <span class="creation-copy"><strong>${esc(c.name)}</strong><small>${esc(c.sub)}</small></span>
     <span class="creation-arrow" aria-hidden="true">→</span>
   </button>`).join("");
-
-  const icons = {
-    grad: '<path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v6c3 2.5 9 2.5 12 0v-6M22 9v6"/>',
-    book: '<path d="M3 5c3-1.5 6-1.5 9 1 3-2.5 6-2.5 9-1v14c-3-1.5-6-1.5-9 1-3-2.5-6-2.5-9-1zM12 6v14"/>',
-    code: '<path d="m6 8-3 4 3 4m12-8 3 4-3 4m-5-8-3 8"/>',
-    cat: '<path d="M4 9C1 2 4 1 8 5a11 11 0 0 1 8 0c4-4 7-3 4 4a9 9 0 1 1-16 0Z"/><path d="M8 12h.01M16 12h.01M11 15h2l-1 1zM9 18c1 1 2 1 3 0 1 1 2 1 3 0"/>'
-  };
-  $("badges").innerHTML = P.badges.map((b) => `<li><div class="badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[b.icon] || ""}</svg></div>${esc(b.name)}</li>`).join("");
 
   const externalLink = (url, label) => `<a href="${esc(safe(url))}" target="_blank" rel="noopener noreferrer">${esc(label)} ↗</a>`;
   function research() {
@@ -75,7 +66,7 @@
     return `<section class="detail-section"><h3>Skills</h3>${CONTENT.skills.map((s) => `<article class="detail-entry"><h4>${esc(s.group)}</h4><p>${s.items.map(esc).join(" · ")}</p></article>`).join("")}</section>`;
   }
   function showPortfolio(section) {
-    $("dialogTitle").textContent = section === "research" ? "Research Lab" : section === "projects" ? "Coding Projects" : "Nhi's Portfolio";
+    $("dialogTitle").textContent = section === "research" ? "Publications" : section === "projects" ? "Coding Projects" : "Nhi's Portfolio";
     $("dialogContent").innerHTML = section === "research" ? research() : section === "projects" ? projects() : education() + research() + projects() + experience() + skills();
     dialog.showModal();
     dialog.scrollTop = 0;

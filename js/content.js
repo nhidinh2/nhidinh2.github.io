@@ -22,23 +22,24 @@ const CONTENT = {
     status: "Online · Chicago",
     title: "PhD Student · Mathematical Computer Science",
     bio: {
-      education: "I’m a first-year Mathematical Computer Science PhD student at the University of Illinois Chicago. Previously, I studied Statistics + Computer Science with a Mathematics minor at the University of Illinois Urbana-Champaign.",
-      focus: "probability, combinatorics, algorithms, and machine learning",
-      focusTail: ". My research studies hypergraphs and algorithmic questions. My applied projects explore information retrieval, AI agent security, and statistical modeling, with an emphasis on reproducible experiments.",
-      outside: "I’ve worked in quantitative research, data development, and financial document question answering.",
+      current: "I am currently a first-year Ph.D. student in Mathematical Computer Science at the University of Illinois Chicago (UIC).",
+      education: "I received my B.S. in Statistics and Computer Science, with a minor in Mathematics, from the University of Illinois Urbana-Champaign (UIUC) in May 2026.",
+      groups: [
+        { name: "ICLUE", url: "https://ayong.web.illinois.edu/ICLUE.html" },
+        { name: "Illinois Math Lab", url: "https://iml.math.illinois.edu/" }
+      ],
       email: "nhidinh2@illinois.edu",
-      researchInterests: ["Probability & combinatorics", "Algorithms & theoretical CS", "Machine learning & information retrieval", "Statistical modeling & time series"]
+      researchInterests: [
+        "Probabilistic Combinatorics and Random Graphs",
+        "Randomized and Online Algorithms",
+        "Theoretical Computer Science",
+        "High-Dimensional Probability and Optimization"
+      ]
     },
     stats: [
       { value: "2026", label: "Joined PhD", color: "#3a86ff", shade: "#2563c9" },
       { value: "2", label: "Universities", color: "#ff5d8f", shade: "#d43c6c" },
       { value: "∞", label: "Curiosity", color: "#ffb703", shade: "#d08f00" }
-    ],
-    badges: [
-      { name: "UIUC Grad", icon: "grad", color: "#ff8a3d" },
-      { name: "Published", icon: "book", color: "#8a5cf6" },
-      { name: "Developer", icon: "code", color: "#14b8a6" },
-      { name: "Cat Person", icon: "cat", color: "#ff5d8f" }
     ]
   },
 
