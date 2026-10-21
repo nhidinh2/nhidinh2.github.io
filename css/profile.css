@@ -102,7 +102,7 @@ button, a { touch-action: manipulation; }
 dialog { width: min(820px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 24px; color: var(--text); background: #202020; border: 1px solid #555; border-radius: 16px; }
 dialog::backdrop { background: #000c; }
 body:has(dialog[open]) { overflow: hidden; }
-.dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.dialog-head { display: flex; align-items: center; justify-content: flex-end; gap: 16px; margin-bottom: 18px; }
 .dialog-head h2 { font-size: 28px; }
 .dialog-close { border: 1px solid #666; border-radius: 50%; background: #333; width: 40px; height: 40px; flex: 0 0 40px; cursor: pointer; font-size: 28px; line-height: 1; }
 .detail-section + .detail-section { margin-top: 28px; }
