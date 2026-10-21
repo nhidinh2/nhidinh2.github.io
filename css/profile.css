@@ -153,13 +153,13 @@ body:has(dialog[open]) { overflow: hidden; }
     margin: 0;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    gap: 12px;
-    white-space: nowrap;
+    gap: 4px 12px;
   }
-  .research-interests li { margin: 0; font-size: clamp(12px, 1.15vw, 15px); line-height: 1.35; }
-  .research-interests li + li::before { content: "·"; margin-right: 12px; color: #888; }
+  .research-interests li { margin: 0; font-size: clamp(12px, 1.15vw, 15px); line-height: 1.35; white-space: nowrap; }
+  .research-interests li:not(:last-child)::after { content: "·"; margin-left: 12px; color: #888; }
 
   .creations-section { grid-column: 1; min-width: 0; }
   .badges-section { grid-column: 2; min-width: 0; }
