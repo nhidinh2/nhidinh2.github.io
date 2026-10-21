@@ -117,7 +117,24 @@ const CONTENT = {
       skills: ["C", "Oracle BRM", "Docker", "GitLab CI/CD"] },
     { company: "MB Securities JSC", role: "Data Scientist Intern", place: "Hanoi, Vietnam", dates: "Jun 2024 - Aug 2024",
       summary: "Built Vietnamese and English financial document QA with GraphRAG retrieval, grounded citations, a 200-query benchmark, and systematic error analysis.",
-      skills: ["GraphRAG", "NLP", "Evaluation", "Python"] }
+      skills: ["GraphRAG", "NLP", "Evaluation", "Python"] },
+    { company: "National Center for Supercomputing Applications (NCSA)", role: "", place: "Illinois, USA", dates: "", summary: "", skills: [] },
+    { company: "Illinois Natural History Survey", role: "Data Technician", place: "Illinois, USA", dates: "", summary: "", skills: [] }
+  ],
+
+  teaching: [
+    { school: "University of Illinois Chicago", courses: ["MATH 180 - Calculus I"] },
+    { school: "University of Illinois Urbana-Champaign", courses: [
+      "MATH 257 - Linear Algebra with Computational Applications",
+      "MATH 227 - Linear Algebra for Data Science",
+      "STAT 400 - Statistics and Probability I",
+      "STAT 425 - Statistical Modeling I",
+      "WYSE - Roboscape Cybersecurity Camp"
+    ] }
+  ],
+
+  talks: [
+    { title: "Choosability of Multipartite Hypergraphs", venue: "UIUC Graph Theory and Combinatorics Seminar", date: "Fall 2025" }
   ],
 
   skills: [

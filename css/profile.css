@@ -111,6 +111,8 @@ body:has(dialog[open]) { overflow: hidden; }
 .detail-entry h4 { margin: 0 0 7px; font-size: 19px; }
 .detail-entry p { margin: 6px 0; }
 .detail-entry .meta { color: #bcbcbc; }
+.course-list { margin: 6px 0 0; padding-left: 22px; }
+.course-list li { margin: 3px 0; }
 .detail-entry a { display: inline-block; margin-top: 8px; text-underline-offset: 4px; }
 
 /* Compact spacing with the original stacked sections. */
