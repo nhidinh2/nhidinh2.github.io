@@ -28,7 +28,12 @@ const CONTENT = {
         { name: "ICLUE", url: "https://ayong.web.illinois.edu/ICLUE.html" },
         { name: "Illinois Math Lab", url: "https://iml.math.illinois.edu/" }
       ],
+      research: [
+        "My research interests lie in theoretical computer science, particularly probabilistic combinatorics, randomized algorithms, and random discrete structures. My recent work studies algorithmic phase transitions for finding large independent sets in dense random hypergraphs.",
+        "Beyond theoretical research, I am also interested in machine learning, optimization, and their applications."
+      ],
       email: "nhidinh2@illinois.edu",
+      /* Not shown on the homepage; the portfolio chat uses this list. */
       researchInterests: [
         "Probabilistic Combinatorics and Random Graphs",
         "Randomized and Online Algorithms",

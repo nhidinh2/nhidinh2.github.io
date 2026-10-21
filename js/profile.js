@@ -15,10 +15,7 @@
   $("aboutText").innerHTML = `
     <p>${esc(bio.current)}</p>
     <p>${esc(bio.education)} I am grateful to be part of ${groupLinks} during my time there!</p>
-    <section class="research-interests" aria-labelledby="research-interests-title">
-      <h3 id="research-interests-title">Research Interests</h3>
-      <ul>${bio.researchInterests.map((interest) => `<li>${esc(interest)}</li>`).join("")}</ul>
-    </section>`;
+    ${bio.research.map((p) => `<p>${esc(p)}</p>`).join("")}`;
 
   // contact row: LinkedIn, GitHub, Google Scholar, email (links without a URL are skipped)
   const contactIcons = {
