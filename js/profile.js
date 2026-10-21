@@ -48,7 +48,7 @@
 
   const externalLink = (url, label) => `<a href="${esc(safe(url))}" target="_blank" rel="noopener noreferrer">${esc(label)} ↗</a>`;
   function research() {
-    return `<section class="detail-section"><h3>Research & Publications</h3>${CONTENT.papers.map((p) => `<article class="detail-entry"><h4>${esc(p.title)}</h4><p class="meta">${esc(p.venue)} · ${esc(p.year)}</p><p>${esc(p.authors)}</p><p>${esc(p.problem)}</p><p>${esc(p.found)}</p>${externalLink(p.link, "Read paper")}</article>`).join("")}</section>` + talks();
+    return `<section class="detail-section"><h3>Research & Publications</h3>${CONTENT.papers.map((p) => `<article class="detail-entry"><h4>${esc(p.title)}</h4><p class="meta">${esc(p.venue)} · ${esc(p.year)}</p><p>${esc(p.authors)}</p><p>${esc(p.problem)}</p><p>${esc(p.found)}</p>${externalLink(p.link, "Read paper")}</article>`).join("")}</section>`;
   }
   function talks() {
     return `<section class="detail-section"><h3>Talks</h3>${CONTENT.talks.map((t) => `<article class="detail-entry"><h4>${esc(t.title)}</h4><p class="meta">${esc(t.venue)} · ${esc(t.date)}</p></article>`).join("")}</section>`;
@@ -60,7 +60,7 @@
     return `<section class="detail-section"><h3>Selected projects</h3>${CONTENT.projects.map((p) => `<article class="detail-entry"><h4>${esc(p.name || p.title)}</h4><p class="meta">${esc(p.tag)}</p><p>${esc(p.desc)}</p><p class="meta">${p.stack.map(esc).join(" · ")}</p>${externalLink(p.github, "View on GitHub")}${p.demo ? " · " + externalLink(p.demo, "Live dashboard") : ""}</article>`).join("")}</section>`;
   }
   function education() {
-    return `<section class="detail-section"><h3>Education</h3>${CONTENT.education.map((e) => `<article class="detail-entry"><h4>${esc(e.full)}</h4><p>${esc(e.degree)}</p><p class="meta">${esc(e.years)}</p><p>${esc(e.story)}</p></article>`).join("")}</section>`;
+    return `<section class="detail-section"><h3>Education</h3>${CONTENT.education.map((e) => `<article class="detail-entry"><h4>${esc(e.full)}</h4><p>${esc(e.degree)}</p><p class="meta">${esc(e.years)}</p>${e.story ? `<p>${esc(e.story)}</p>` : ""}</article>`).join("")}</section>`;
   }
   function experience() {
     return `<section class="detail-section"><h3>Work Experience</h3>${CONTENT.experience.map((e) => `<article class="detail-entry"><h4>${[e.role, e.company].filter(Boolean).map(esc).join(" · ")}</h4>${e.dates ? `<p class="meta">${esc(e.dates)}</p>` : ""}${e.summary ? `<p>${esc(e.summary)}</p>` : ""}</article>`).join("")}</section>`;
@@ -70,7 +70,7 @@
   }
   function showPortfolio(section) {
     $("dialogTitle").textContent = section === "research" ? "Publications" : section === "projects" ? "Coding Projects" : "Nhi's Portfolio";
-    $("dialogContent").innerHTML = section === "research" ? research() : section === "projects" ? projects() : education() + research() + teaching() + projects() + experience() + skills();
+    $("dialogContent").innerHTML = section === "research" ? research() : section === "projects" ? projects() : education() + research() + experience() + teaching() + talks() + projects() + skills();
     dialog.showModal();
     dialog.scrollTop = 0;
   }

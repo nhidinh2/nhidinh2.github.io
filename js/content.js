@@ -51,11 +51,11 @@ const CONTENT = {
   education: [
     { school: "UIC", full: "University of Illinois Chicago", wall: "#1f3a6e", roof: "#d50032",
       degree: "Ph.D. in Mathematics (Mathematical Computer Science)", years: "Aug 2026 - Present", status: "In progress",
-      story: "Also completed an M.S. in Mathematical Computer Science in August 2026. Current interests include algorithms, machine learning, and hypergraphs.",
+      story: "Also completed an M.S. in Mathematical Computer Science in August 2026.",
       classes: ["Algorithms", "Machine Learning", "Deep Learning"] },
     { school: "UIUC", full: "University of Illinois Urbana-Champaign", wall: "#e84a27", roof: "#13294b",
       degree: "B.S. in Statistics & Computer Science; minor in Mathematics", years: "May 2026", status: "Graduated",
-      story: "Graduated with a 3.9/4.0 GPA, Highest Distinction, a Fiddler Innovation Fellowship, and four Dean's List honors.",
+      story: "",
       classes: ["Probability Theory", "Applied Bayesian Analysis", "Machine Learning"] }
   ],
 
@@ -112,14 +112,18 @@ const CONTENT = {
     { company: "Square Kettle", role: "Quantitative Research Intern", place: "Illinois, USA", dates: "Jan 2026 - Jul 2026",
       summary: "Built and evaluated quantitative research pipelines, optimized intraday strategies with walk-forward validation, and developed graph-Laplacian and discrete-wave models of market shocks.",
       skills: ["Python", "Backtesting", "Optimization", "Docker"] },
+    { company: "Illinois Natural History Survey", role: "Data Technician", place: "Illinois, USA", dates: "Aug 2025 - Dec 2025",
+      summary: "Cleaned and validated 5,000+ survey responses using R and SPSS to support research analysis and reporting.",
+      skills: ["R", "SPSS", "Data Validation"] },
     { company: "Congero Technology", role: "Data Developer Intern", place: "Virginia, USA", dates: "Jun 2025 - Aug 2025",
       summary: "Implemented LLM API onboarding and Oracle BRM C opcodes, plus event schemas, data-quality checks, batch loading, and a Docker/GitLab CI/CD workflow.",
       skills: ["C", "Oracle BRM", "Docker", "GitLab CI/CD"] },
+    { company: "National Center for Supercomputing Applications (NCSA)", role: "Research Programmer", place: "Illinois, USA", dates: "Jan 2025 - May 2025",
+      summary: "Migrated a 10,000+ line C++/GTK application to Qt and developed Markov-chain models for algorithmic music generation.",
+      skills: ["C++", "Qt", "GTK", "Markov Chains"] },
     { company: "MB Securities JSC", role: "Data Scientist Intern", place: "Hanoi, Vietnam", dates: "Jun 2024 - Aug 2024",
       summary: "Built Vietnamese and English financial document QA with GraphRAG retrieval, grounded citations, a 200-query benchmark, and systematic error analysis.",
       skills: ["GraphRAG", "NLP", "Evaluation", "Python"] },
-    { company: "National Center for Supercomputing Applications (NCSA)", role: "", place: "Illinois, USA", dates: "", summary: "", skills: [] },
-    { company: "Illinois Natural History Survey", role: "Data Technician", place: "Illinois, USA", dates: "", summary: "", skills: [] }
   ],
 
   teaching: [
