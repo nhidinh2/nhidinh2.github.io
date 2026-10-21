@@ -35,7 +35,7 @@ button, a { touch-action: manipulation; }
 .head-card .visit { flex: 1 1 520px; margin-left: auto; min-height: 179px; padding: 20px 24px; }
 .head-card .visit-title { font-size: 32px; }
 .head-card .visit-sub { font-size: 16px; }
-.avatar-box { flex: 0 0 auto; width: auto; height: 220px; margin-left: 24px; aspect-ratio: 967 / 1100; border-radius: 16px; background: #222; object-fit: cover; }
+.avatar-box { flex: 0 0 auto; width: auto; height: 220px; aspect-ratio: 967 / 1100; border-radius: 16px; background: #222; object-fit: cover; }
 .head-info { min-width: 0; flex: 1 1 180px; }
 .head-info h1 { font-size: 46px; line-height: 1.15; margin-bottom: 7px; letter-spacing: -.5px; }
 .handle { color: var(--muted); font-size: 20px; line-height: 1.5; }
@@ -182,7 +182,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .head-card { gap: 15px; min-height: 128px; }
   .head-card .avatar-box + .head-info { flex-basis: 0; }
   .head-card .visit { flex-basis: 100%; }
-  .avatar-box { height: 150px; border-radius: 14px; margin-left: 12px; }
+  .avatar-box { height: 150px; border-radius: 14px; }
   .head-info h1 { font-size: 32px; margin-bottom: 3px; }
   .handle, .status { font-size: 15px; }
   .status { margin-top: 5px; gap: 5px; }
