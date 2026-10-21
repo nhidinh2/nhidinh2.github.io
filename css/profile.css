@@ -35,7 +35,7 @@ button, a { touch-action: manipulation; }
 .head-card .visit { flex: 1 1 520px; margin-left: auto; min-height: 179px; padding: 20px 24px; }
 .head-card .visit-title { font-size: 32px; }
 .head-card .visit-sub { font-size: 16px; }
-.avatar-box { flex: 0 0 179px; width: 179px; height: 179px; border-radius: 20px; background: linear-gradient(180deg, #9fd8ff 0%, #d9f1ff 70%, #9ee37d 70%, #7fd162 100%); object-fit: contain; }
+.avatar-box { flex: 0 0 179px; width: 179px; height: 179px; border-radius: 20px; background: #222; object-fit: cover; }
 .head-info { min-width: 0; flex: 1 1 180px; }
 .head-info h1 { font-size: 32px; line-height: 1.25; margin-bottom: 7px; letter-spacing: -.5px; }
 .handle { color: var(--muted); font-size: 20px; line-height: 1.5; }
