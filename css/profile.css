@@ -35,9 +35,9 @@ button, a { touch-action: manipulation; }
 .head-card .visit { flex: 1 1 520px; margin-left: auto; min-height: 179px; padding: 20px 24px; }
 .head-card .visit-title { font-size: 32px; }
 .head-card .visit-sub { font-size: 16px; }
-.avatar-box { flex: 0 0 179px; width: 179px; height: 179px; border-radius: 20px; background: #222; object-fit: cover; }
+.avatar-box { flex: 0 0 auto; width: auto; height: 220px; aspect-ratio: 967 / 1100; border-radius: 16px; background: #222; object-fit: cover; }
 .head-info { min-width: 0; flex: 1 1 180px; }
-.head-info h1 { font-size: 32px; line-height: 1.25; margin-bottom: 7px; letter-spacing: -.5px; }
+.head-info h1 { font-size: 46px; line-height: 1.15; margin-bottom: 7px; letter-spacing: -.5px; }
 .handle { color: var(--muted); font-size: 20px; line-height: 1.5; }
 .status { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 20px; line-height: 1.5; }
 .dot { flex: 0 0 19px; height: 19px; border-radius: 50%; background: #35c875; }
@@ -126,8 +126,8 @@ body:has(dialog[open]) { overflow: hidden; }
   }
   .profile > * { flex: 0 0 auto; }
   .head-card { flex-wrap: nowrap; gap: 16px; min-height: 88px; }
-  .avatar-box { flex-basis: 88px; width: 88px; height: 88px; border-radius: 16px; }
-  .head-info h1 { font-size: 27px; line-height: 1.2; margin-bottom: 3px; }
+  .avatar-box { height: 170px; border-radius: 14px; }
+  .head-info h1 { font-size: 42px; line-height: 1.15; margin-bottom: 4px; }
   .handle { font-size: 15px; line-height: 1.4; }
   .status { gap: 6px; margin-top: 5px; font-size: 15px; line-height: 1.4; }
   .dot { flex-basis: 12px; height: 12px; }
@@ -180,8 +180,8 @@ body:has(dialog[open]) { overflow: hidden; }
   .head-card { gap: 15px; min-height: 128px; }
   .head-card .avatar-box + .head-info { flex-basis: 0; }
   .head-card .visit { flex-basis: 100%; }
-  .avatar-box { flex-basis: 112px; width: 112px; height: 112px; border-radius: 16px; }
-  .head-info h1 { font-size: 25px; margin-bottom: 3px; }
+  .avatar-box { height: 150px; border-radius: 14px; }
+  .head-info h1 { font-size: 32px; margin-bottom: 3px; }
   .handle, .status { font-size: 15px; }
   .status { margin-top: 5px; gap: 5px; }
   .dot { flex-basis: 12px; height: 12px; }
