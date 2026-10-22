@@ -14,7 +14,7 @@
   const groupLinks = bio.groups.map((g) => `<a href="${esc(safe(g.url))}" target="_blank" rel="noopener noreferrer">${esc(g.name)}</a>`).join(" and ");
   $("aboutText").innerHTML = `
     <p>${esc(bio.current)}</p>
-    <p>${esc(bio.education)} I am grateful to be part of ${groupLinks} during my time there!</p>
+    <p>${esc(bio.education)} I am grateful I was able to be part of ${groupLinks} during my time there!</p>
     ${bio.research.map((p) => `<p>${esc(p)}</p>`).join("")}`;
 
   // contact row: LinkedIn, GitHub, Google Scholar, email (links without a URL are skipped)
