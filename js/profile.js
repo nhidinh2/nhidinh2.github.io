@@ -12,8 +12,9 @@
   $("title").textContent = P.title;
   const bio = P.bio;
   const groupLinks = bio.groups.map((g) => `<a href="${esc(safe(g.url))}" target="_blank" rel="noopener noreferrer">${esc(g.name)}</a>`).join(" and ");
+  const programLink = `<a href="${esc(safe(bio.program.url))}" target="_blank" rel="noopener noreferrer">${esc(bio.program.name)}</a>`;
   $("aboutText").innerHTML = `
-    <p>${esc(bio.current)}</p>
+    <p>${esc(bio.current).replace(esc(bio.program.name), programLink)}</p>
     <p>${esc(bio.education)} I am grateful I was able to be part of ${groupLinks} during my time there!</p>
     ${bio.research.map((p) => `<p>${esc(p)}</p>`).join("")}`;
 

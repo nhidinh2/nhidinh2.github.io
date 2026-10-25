@@ -22,7 +22,9 @@ const CONTENT = {
     status: "Online · Chicago",
     title: "PhD Student · Mathematical Computer Science",
     bio: {
-      current: "I am currently a first-year Ph.D. student in Mathematical Computer Science at the University of Illinois Chicago (UIC).",
+      current: "I am a Ph.D. student in Mathematical Computer Science at the University of Illinois Chicago (UIC).",
+      /* The program name inside `current` is linked to this page. */
+      program: { name: "Mathematical Computer Science", url: "https://homepages.math.uic.edu/~mcs/" },
       education: "I received my B.S. in Statistics and Computer Science, with a minor in Mathematics, from the University of Illinois Urbana-Champaign (UIUC) in May 2026.",
       groups: [
         { name: "ICLUE", url: "https://ayong.web.illinois.edu/ICLUE.html" },
