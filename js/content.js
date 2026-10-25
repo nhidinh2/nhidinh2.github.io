@@ -67,7 +67,7 @@ const CONTENT = {
       problem: "Studies the algorithmic tractability of finding large independent sets in dense random hypergraphs.",
       why: "Dense models require online algorithmic ideas that differ from the local and low-degree approaches common in sparse settings.",
       found: "Pinpoints optimal sizes, gives online approximation algorithms, and establishes matching lower bounds for the resulting computational gaps.",
-      link: "https://arxiv.org/abs/2605.05618v1" },
+      link: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol392-approx-random2026/LIPIcs.APPROX-RANDOM.2026.68/LIPIcs.APPROX-RANDOM.2026.68.pdf" },
     { title: "Choosability of Multipartite Hypergraphs", venue: "Discrete Mathematics", year: "2025",
       authors: "Peter Bradshaw, Abhishek Dhawan, Nhi Dinh, Shlok Mulye, Rohan Rathi",
       problem: "Studies list coloring bounds for k-partite, k-uniform hypergraphs with maximum degree Δ.",
@@ -153,7 +153,7 @@ const CONTENT = {
   /* Shown on the computer in Nhi's House. Keep it to real, current things. */
   current: [
     { title: "Starting my PhD at UIC", note: "Mathematical computer science, since Aug 2026." },
-    { title: "Hypergraph independent sets", note: "Algorithmic phase transitions in dense hypergraphs (RANDOM 2026).", link: "https://arxiv.org/abs/2605.05618v1" },
+    { title: "Hypergraph independent sets", note: "Algorithmic phase transitions in dense hypergraphs (RANDOM 2026).", link: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol392-approx-random2026/LIPIcs.APPROX-RANDOM.2026.68/LIPIcs.APPROX-RANDOM.2026.68.pdf" },
     { title: "Building things that actually work", note: "Applied AI, NLP and agent-safety projects. See the Project Garage." }
   ],
 
@@ -209,7 +209,7 @@ const CONTENT = {
       { label: "GitHub", url: "https://github.com/nhidinh2" },
       { label: "LinkedIn", url: "https://www.linkedin.com/in/nhi-dinh-533162276/" },
       { label: "Google Scholar", url: "https://scholar.google.com/citations?hl=en&user=BjeNuUcAAAAJ" },
-      { label: "Research Paper", url: "https://arxiv.org/abs/2605.05618v1" }
+      { label: "Research Paper", url: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol392-approx-random2026/LIPIcs.APPROX-RANDOM.2026.68/LIPIcs.APPROX-RANDOM.2026.68.pdf" }
     ]
   },
   resume: "",   // kept private: the CV is not linked anywhere on the site
