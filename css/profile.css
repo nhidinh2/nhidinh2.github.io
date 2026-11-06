@@ -76,20 +76,19 @@ button, a { touch-action: manipulation; }
 /* "Visit Nhi's Universe" banner: a window into the game */
 .visit { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 230px; padding: 26px 28px; overflow: hidden; color: #fff; text-decoration: none; border-radius: 18px; isolation: isolate;
   background: url("../assets/universe-preview.jpg") center 40% / cover no-repeat, #5cbf4a; border: 2px solid #ffffff2e;
-  box-shadow: 0 0 0 0 #00b06f88; animation: visitGlow 2.6s ease-in-out infinite; transition: transform .2s ease, box-shadow .2s ease; }
+  transition: transform .2s ease, box-shadow .2s ease; }
 .visit::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #0b1a2ee6 0%, #0b1a2eb3 45%, #0b1a2e1a 100%); }
 .visit-copy { display: flex; flex-direction: column; gap: 8px; max-width: 620px; }
 .visit-tag { align-self: flex-start; padding: 3px 11px; border-radius: 99px; background: #ffb703; color: #17202b; font-size: 14px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; }
 .visit-title { font-size: 38px; font-weight: 800; line-height: 1.1; letter-spacing: -.5px; text-shadow: 0 2px 12px #0008; }
 .visit-sub { color: #e6eef8; font-size: 18px; line-height: 1.45; }
-.visit-play { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; border-radius: 16px; background: #00b06f; color: #fff; font-size: 26px; font-weight: 800; letter-spacing: 1px; box-shadow: 0 6px 0 #007a4d, 0 10px 24px #0007; transition: transform .15s ease, box-shadow .15s ease; }
-.visit-play svg { width: 26px; height: 26px; fill: currentColor; }
+.visit-play { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: #00b06f; color: #fff; box-shadow: 0 4px 12px #0005; transition: transform .15s ease, background .15s ease; }
+.visit-play svg { width: 24px; height: 24px; margin-left: 3px; fill: currentColor; }
 @media (hover: hover) {
-  .visit:hover { transform: translateY(-3px); box-shadow: 0 14px 34px #00b06f55; }
-  .visit:hover .visit-play { transform: scale(1.06); }
+  .visit:hover { transform: translateY(-2px); }
+  .visit:hover .visit-play { background: #00c47c; }
 }
-.visit:active .visit-play { transform: translateY(4px); box-shadow: 0 2px 0 #007a4d; }
-@keyframes visitGlow { 0%, 100% { box-shadow: 0 0 0 0 #00b06f00; } 50% { box-shadow: 0 0 0 6px #00b06f55, 0 0 32px #00b06f44; } }
+.visit:active .visit-play { transform: scale(.95); }
 
 
 /* contact row */
@@ -172,8 +171,8 @@ body:has(dialog[open]) { overflow: hidden; }
   .visit-tag { padding: 2px 8px; font-size: 10px; }
   .visit-title { font-size: 24px; }
   .visit-sub { font-size: 12px; line-height: 1.35; }
-  .visit-play { gap: 7px; padding: 10px 17px; border-radius: 12px; font-size: 17px; box-shadow: 0 4px 0 #007a4d, 0 8px 18px #0007; }
-  .visit-play svg { width: 19px; height: 19px; }
+  .visit-play { width: 40px; height: 40px; }
+  .visit-play svg { width: 18px; height: 18px; margin-left: 2px; }
 }
 
 @media (max-width: 899px) {
@@ -213,7 +212,8 @@ body:has(dialog[open]) { overflow: hidden; }
   .visit-title, .head-card .visit-title { font-size: 28px; }
   .visit-sub, .head-card .visit-sub { font-size: 15px; }
   .visit-tag { font-size: 12px; }
-  .visit-play { justify-content: center; font-size: 22px; padding: 12px 20px; }
+  .visit-play { align-self: flex-start; width: 48px; height: 48px; }
+  .visit-play svg { width: 20px; height: 20px; }
   .contact h2 { font-size: 22px; }
   .contact-links { gap: 8px; }
   .contact-links a { font-size: 15px; padding: 10px 15px; }
