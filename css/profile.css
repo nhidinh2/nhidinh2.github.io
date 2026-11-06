@@ -70,13 +70,14 @@ button, a { touch-action: manipulation; }
 .badges li { font-size: 16px; line-height: 1.5; letter-spacing: .3px; }
 .badge-icon { width: 93px; height: 93px; margin: 0 auto 3px; border-radius: 50%; display: grid; place-items: center; background: #222; }
 .badge-icon svg { width: 32px; height: 32px; fill: none; stroke: #eaeaea; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-/* Small play button that opens Nhi's Universe */
-.universe-section { display: flex; justify-content: center; }
-.play-btn { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: #00b06f; color: #fff; transition: transform .15s ease, background .15s ease; }
-.play-btn svg { width: 24px; height: 24px; margin-left: 3px; fill: currentColor; }
-@media (hover: hover) { .play-btn:hover { background: #00c47c; } }
-.play-btn:active { transform: scale(.95); }
-.play-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+/* "Play me!" pill in the Find me row: opens Nhi's Universe */
+.contact-links .play-me { position: relative; gap: 8px; padding-left: 8px; color: #fff; font-weight: 700; background: linear-gradient(135deg, #ff8fb8, #ff6fa3 55%, #c86bff); border-color: #ffffff40; }
+.contact-links .play-me:hover { background: linear-gradient(135deg, #ff9ec2, #ff7fae 55%, #d27dff); transform: translateY(-2px) rotate(-2deg); }
+.contact-links .play-me:active { transform: scale(.96); }
+.contact-links .play-me .play-me-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%; background: #fff; color: #ff5f9a; }
+.contact-links .play-me .play-me-icon svg { width: 13px; height: 13px; margin-left: 2px; fill: currentColor; stroke: none; }
+.contact-links .play-me .sparkle { display: inline-block; transition: transform .3s ease; }
+@media (hover: hover) { .contact-links .play-me:hover .sparkle { transform: rotate(20deg) scale(1.2); } }
 
 
 /* contact row */
@@ -102,58 +103,61 @@ body:has(dialog[open]) { overflow: hidden; }
 .course-list li { margin: 3px 0; }
 .detail-entry a { display: inline-block; margin-top: 8px; text-underline-offset: 4px; }
 
-/* Compact spacing with the original stacked sections. */
 @media (min-width: 900px) {
-  body { font-size: 16px; line-height: 1.45; }
+  :root { --u: clamp(.8px, min(calc(100svh / 660), calc(100vw / 1020)), 2.2px); }
+  body { font-size: calc(16 * var(--u)); line-height: 1.45; }
   .profile {
     min-height: 100svh;
-    padding: 20px 24px;
+    padding: calc(20 * var(--u)) calc(24 * var(--u));
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: calc(20 * var(--u));
+    justify-content: space-between;
   }
   .profile > * { flex: 0 0 auto; }
-  .head-card { flex-wrap: nowrap; gap: 16px; min-height: 88px; }
-  .avatar-box { height: 170px; border-radius: 14px; }
-  .head-info h1 { font-size: 42px; line-height: 1.15; margin-bottom: 4px; }
-  .handle { font-size: 15px; line-height: 1.4; }
-  .status { gap: 6px; margin-top: 5px; font-size: 15px; line-height: 1.4; }
-  .dot { flex-basis: 12px; height: 12px; }
-  .title { margin-top: 5px; font-size: 17px; line-height: 1.4; }
+  .head-card { flex-wrap: nowrap; gap: calc(16 * var(--u)); min-height: calc(88 * var(--u)); }
+  .avatar-box { height: calc(170 * var(--u)); border-radius: calc(14 * var(--u)); }
+  .head-info h1 { font-size: calc(42 * var(--u)); line-height: 1.15; margin-bottom: calc(4 * var(--u)); }
+  .handle { font-size: calc(15 * var(--u)); line-height: 1.4; }
+  .status { gap: calc(6 * var(--u)); margin-top: calc(5 * var(--u)); font-size: calc(15 * var(--u)); line-height: 1.4; }
+  .dot { flex-basis: calc(12 * var(--u)); height: calc(12 * var(--u)); }
+  .title { margin-top: calc(5 * var(--u)); font-size: calc(17 * var(--u)); line-height: 1.4; }
 
-  .about { padding: 16px 18px; }
-  .about h2 { font-size: 22px; line-height: 1.3; }
-  .bio-copy { margin-top: 7px; display: block; }
-  .bio-copy p { max-width: none; margin: 0 0 8px; font-size: 15px; line-height: 1.45; }
+  .about { padding: calc(16 * var(--u)) calc(18 * var(--u)); }
+  .about h2 { font-size: calc(22 * var(--u)); line-height: 1.3; }
+  .bio-copy { margin-top: calc(7 * var(--u)); display: block; }
+  .bio-copy p { max-width: none; margin: 0 0 calc(8 * var(--u)); font-size: calc(15 * var(--u)); line-height: 1.45; }
   .bio-copy p:last-child { margin-bottom: 0; }
   .bio-email { margin-top: 0 !important; }
-  .research-interests { margin-top: 7px; padding-top: 7px; }
-  .research-interests h3 { font-size: 15px; line-height: 1.3; }
-  .research-interests ul { margin: 4px 0 0; padding-left: 22px; }
-  .research-interests li { margin: 2px 0; font-size: 15px; line-height: 1.4; }
+  .research-interests { margin-top: calc(7 * var(--u)); padding-top: calc(7 * var(--u)); }
+  .research-interests h3 { font-size: calc(15 * var(--u)); line-height: 1.3; }
+  .research-interests ul { margin: calc(4 * var(--u)) 0 0; padding-left: calc(22 * var(--u)); }
+  .research-interests li { margin: calc(2 * var(--u)) 0; font-size: calc(15 * var(--u)); line-height: 1.4; }
 
   .creations-section { grid-column: 1; min-width: 0; }
   .badges-section { grid-column: 2; min-width: 0; }
-  .row-title { margin: 0 0 10px; }
-  .row-title h2 { font-size: 20px; line-height: 1.3; }
-  .row-title a { font-size: 15px; }
-  .creation-button { min-height: 60px; gap: 12px; padding: 8px 15px; }
-  .creation-icon { width: 38px; height: 38px; font-size: 17px; }
-  .creation-copy strong { font-size: 17px; line-height: 1.3; }
-  .creation-copy small { font-size: 13px; line-height: 1.4; margin-top: 1px; }
-  .creation-arrow { font-size: 22px; }
-  .badges { gap: 8px; }
-  .badges li { font-size: 12px; line-height: 1.35; letter-spacing: .1px; }
-  .badge-icon { width: 40px; height: 40px; margin-bottom: 3px; }
-  .badge-icon svg { width: 25px; height: 25px; }
+  .row-title { margin: 0 0 calc(10 * var(--u)); }
+  .row-title h2 { font-size: calc(20 * var(--u)); line-height: 1.3; }
+  .row-title a { font-size: calc(15 * var(--u)); }
+  .creation-button { min-height: calc(60 * var(--u)); gap: calc(12 * var(--u)); padding: calc(8 * var(--u)) calc(15 * var(--u)); }
+  .creation-icon { width: calc(38 * var(--u)); height: calc(38 * var(--u)); font-size: calc(17 * var(--u)); }
+  .creation-copy strong { font-size: calc(17 * var(--u)); line-height: 1.3; }
+  .creation-copy small { font-size: calc(13 * var(--u)); line-height: 1.4; margin-top: calc(1 * var(--u)); }
+  .creation-arrow { font-size: calc(22 * var(--u)); }
+  .badges { gap: calc(8 * var(--u)); }
+  .badges li { font-size: calc(12 * var(--u)); line-height: 1.35; letter-spacing: .1px; }
+  .badge-icon { width: calc(40 * var(--u)); height: calc(40 * var(--u)); margin-bottom: calc(3 * var(--u)); }
+  .badge-icon svg { width: calc(25 * var(--u)); height: calc(25 * var(--u)); }
 
-  .contact { margin: 0; padding: 0; min-width: 0; display: flex; align-items: center; gap: 18px; }
-  .contact h2 { margin: 0; font-size: 20px; line-height: 1.3; }
-  .contact-links { display: flex; gap: 8px; }
-  .contact-links a { justify-content: center; gap: 6px; min-width: 0; padding: 6px 14px; font-size: 13px; white-space: nowrap; }
-  .contact-links svg { width: 17px; height: 17px; flex: 0 0 17px; }
+  .contact { margin: 0; padding: 0; min-width: 0; display: flex; align-items: center; gap: calc(18 * var(--u)); }
+  .contact h2 { margin: 0; font-size: calc(20 * var(--u)); line-height: 1.3; }
+  .contact-links { display: flex; gap: calc(8 * var(--u)); }
+  .contact-links a { justify-content: center; gap: calc(6 * var(--u)); min-width: 0; padding: calc(6 * var(--u)) calc(14 * var(--u)); font-size: calc(13 * var(--u)); white-space: nowrap; }
+  .contact-links svg { width: calc(17 * var(--u)); height: calc(17 * var(--u)); flex: 0 0 calc(17 * var(--u)); }
+  .contact-links .play-me { padding-left: calc(6 * var(--u)); }
+  .contact-links .play-me .play-me-icon { width: calc(22 * var(--u)); height: calc(22 * var(--u)); flex-basis: calc(22 * var(--u)); }
+  .contact-links .play-me .play-me-icon svg { width: calc(10 * var(--u)); height: calc(10 * var(--u)); flex-basis: auto; }
 
-  .universe-section { min-width: 0; }
 }
 
 @media (max-width: 899px) {

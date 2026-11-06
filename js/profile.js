@@ -35,7 +35,7 @@
   $("contactLinks").innerHTML = contacts.map((c) => {
     const ext = /^https?:/.test(c.url), href = ext || c.url.startsWith("mailto:") ? safe(c.url) : c.url;
     return `<li><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ""}><svg viewBox="0 0 24 24" aria-hidden="true">${contactIcons[c.label]}</svg>${esc(c.label)}</a></li>`;
-  }).join("");
+  }).join("") + `<li><a class="play-me" href="universe/" title="Walk around my 3D town"><span class="play-me-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>Play me! <span class="sparkle" aria-hidden="true">✨</span></a></li>`;
 
   const creations = [
     { id: "research", name: "Publications", sub: "Papers & preprints", symbol: "◈" },
