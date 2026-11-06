@@ -349,10 +349,34 @@
       coinMeshes.push({ g, id, base: c.y });
     });
   }
+  /* Mini Nhi doesn't walk: she rides a little kick scooter. Built into her group,
+     with her body lifted onto the deck. */
+  function addScooter(av) {
+    const g = av.group, LIFT = 0.42;
+    g.children.forEach((c) => { c.position.y += LIFT; });
+    const s = new THREE.Group(); g.add(s);
+    const deck = 0xff8fbf, metal = 0x8fd8c8, tire = 0x2b2f3a;
+    T.box(0, 0.3, 0.1, 1.15, 0.14, 3.0, deck, { parent: s, r: 0.06 });
+    T.box(0, 0.38, -0.2, 0.95, 0.03, 2.2, 0xffffff, { parent: s });              // grip tape stripe
+    T.box(0, 0.32, -1.45, 0.5, 0.1, 0.6, metal, { parent: s, r: 0.04, rx: -0.35 }); // rear fender
+    const wheels = [1.5, -1.35].map((z) => {
+      const w = T.place(T.geo.cyl(0.3, 0.3, 0.26, 16), T.mat(tire, { rough: 0.6 }), 0, 0.3, z, { parent: s, rz: Math.PI / 2 });
+      T.place(T.geo.cyl(0.13, 0.13, 0.28, 10), T.mat(0xffffff), 0, 0, 0, { parent: w });
+      return w;
+    });
+    const stem = new THREE.Group(); stem.position.set(0, 0.35, 1.5); stem.rotation.x = -0.12; s.add(stem);
+    T.cyl(0, 2.05, 0, 0.11, 0.11, 4.1, metal, { parent: stem, seg: 10 });
+    T.cyl(0, 4.1, 0, 0.09, 0.09, 2.2, metal, { parent: stem, seg: 10, rz: Math.PI / 2 });
+    [-1.1, 1.1].forEach((x) => T.cyl(x, 4.1, 0, 0.15, 0.15, 0.45, deck, { parent: stem, seg: 10, rz: Math.PI / 2 }));
+    T.place(T.geo.sphere(0.2, 10, 8), T.mat(0xffe066, { emissive: 0xffd23f, ei: 0.4 }), 0, 3.7, 0.16, { parent: stem }); // headlight
+    av.wheels = wheels;
+    return s;
+  }
   let npc;
   function buildNPC() {
     const n = T.npc;
     npc = makeAvatar(AV, "Nhi", { tagSize: 0.8 });
+    addScooter(npc);
     npc.group.position.set(n.x, 0.16, n.z); npc.group.rotation.y = n.ry; scene.add(npc.group);
     const bubble = T.label("!", 0, 7.6, 0, { parent: npc.group, size: 1.2, bg: "#ffb703" });
     npc.bubble = bubble;
@@ -435,15 +459,18 @@
       el.hidden = true;
     }
     npc.ambientHello = ambientHello;
-    // pose: walk cycle while moving, wave while idle at home
+    // pose: scooting (hands on the bar, a kick-push now and then), wave while idle at home
     if (moving) {
-      npc.phase += dt * 9;
-      const sw = Math.sin(npc.phase);
-      npc.legL.rotation.x = sw * 0.7; npc.legR.rotation.x = -sw * 0.7;
-      npc.armL.rotation.x = -sw * 0.6; npc.armR.rotation.x = sw * 0.6; npc.armR.rotation.z = 0;
-      g.position.y += Math.abs(Math.cos(npc.phase)) * 0.08;
+      npc.phase += dt * 3;
+      const kick = Math.max(0, Math.sin(npc.phase)) ** 3;
+      npc.legL.rotation.x = 0; npc.legR.rotation.x = kick * 0.9;
+      npc.armL.rotation.x = -1.15; npc.armR.rotation.x = -1.15; npc.armR.rotation.z = 0;
+      g.position.y += Math.sin(t * 7) * 0.03;
+      npc.wheels.forEach((w) => { w.rotation.x += NPC_SPEED * dt / 0.3; });
     } else {
-      ["legL", "legR", "armL", "armR"].forEach((k) => { npc[k].rotation.x *= Math.max(0, 1 - dt * 10); });
+      ["legL", "legR"].forEach((k) => { npc[k].rotation.x *= Math.max(0, 1 - dt * 10); });
+      npc.armL.rotation.x = THREE.MathUtils.lerp(npc.armL.rotation.x, npc.mode === "idle" ? 0 : -1.15, Math.min(1, dt * 8));
+      npc.armR.rotation.x = THREE.MathUtils.lerp(npc.armR.rotation.x, npc.mode === "idle" ? 0 : -1.15, Math.min(1, dt * 8));
       npc.armR.rotation.z = npc.mode === "idle" ? 2.5 + Math.sin(t * 5) * 0.35 : npc.armR.rotation.z * Math.max(0, 1 - dt * 8);
     }
     // speech bubble follows her head
