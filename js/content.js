@@ -25,7 +25,7 @@ const CONTENT = {
       current: "I am a Ph.D. student in Mathematical Computer Science at the University of Illinois Chicago (UIC).",
       /* The program name inside `current` is linked to this page. */
       program: { name: "Mathematical Computer Science", url: "https://homepages.math.uic.edu/~mcs/" },
-      education: "I received my B.S. in Statistics and Computer Science, with a minor in Mathematics, from the University of Illinois Urbana-Champaign (UIUC) in May 2026.",
+      education: "I received my B.S. in Statistics and Computer Science, with a minor in Mathematics, from the University of Illinois Urbana-Champaign (UIUC).",
       groups: [
         { name: "ICLUE", url: "https://ayong.web.illinois.edu/ICLUE.html" },
         { name: "Illinois Math Lab", url: "https://iml.math.illinois.edu/" }
