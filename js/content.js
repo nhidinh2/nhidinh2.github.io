@@ -28,7 +28,8 @@ const CONTENT = {
       education: "I received my B.S. in Statistics and Computer Science, with a minor in Mathematics, from the University of Illinois Urbana-Champaign (UIUC).",
       groups: [
         { name: "ICLUE", url: "https://ayong.web.illinois.edu/ICLUE.html" },
-        { name: "Illinois Math Lab", url: "https://iml.math.illinois.edu/" }
+        { name: "Illinois Math Lab", url: "https://iml.math.illinois.edu/" },
+        { name: "NCSA", url: "https://www.ncsa.illinois.edu/people/" }
       ],
       research: [
         "My research interests lie in theoretical computer science, particularly probabilistic combinatorics, randomized algorithms, and random discrete structures. My recent work studies algorithmic phase transitions for finding large independent sets in dense random hypergraphs.",
