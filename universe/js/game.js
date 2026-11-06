@@ -750,6 +750,14 @@
       }
       case "puzzle": openPuzzle(); break;
 
+      case "newsstand": {
+        const ns = CONTENT.newsstand || {}, items = ns.stories || [];
+        panel({ title: "Today's AI news", kicker: "Plaza newsstand · powered by NewsTrace", color: "#2a9d8f",
+          body: items.length
+            ? `<p>Stories I'm tracking with my <b>NewsTrace</b> project. The count is how many <i>independent</i> outlets reported it, so copies of one wire story count once.</p><div class="choices">${items.map((s) => { const u = safeUrl(s.url); return u ? `<a class="btn plain note" href="${esc(u)}" target="_blank" rel="noopener noreferrer"><b>${esc(s.title)}</b><small>${esc(s.domain)} · ${+s.sources} independent source${+s.sources === 1 ? "" : "s"}${s.date ? ` · ${esc(s.date)}` : ""}</small><span aria-hidden="true">↗</span></a>` : ""; }).join("")}</div><div class="row">${ext("https://github.com/nhidinh2/newTrace", "How NewsTrace works", "plain")}<span class="muted">Updated ${esc(ns.updated || "")}</span></div>`
+            : `<div class="block empty"><b>No papers yet</b><span class="muted">Today's news hasn't been delivered. Check back soon!</span></div>` });
+        break;
+      }
       case "achievements": {
         const q = CONTENT.careerQuests;
         const root = panel({ title: "Achievements", kicker: "Achievement Plaza", color: "#ffb703",

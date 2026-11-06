@@ -255,8 +255,41 @@
     [20, 160, 200, 340].forEach((deg) => { const a = (deg * PI) / 180, x = Math.cos(a) * 10.2, z = Math.sin(a) * 10.2; T.bench(x, z, Math.atan2(x, z)); });
     [[-4.8, 12.3], [4.8, 12.3]].forEach(([x, z]) => { T.cyl(x, 0.4, z, 1.3, 1.4, 0.8, 0xd9cdb4, { seg: 12, solid: true }); T.cyl(x, 0.82, z, 1.1, 1.1, 0.06, 0x6b4a32, { seg: 12, cast: false }); T.flowers(x, z, 1.6, 1.6, 10, undefined, 0.8); });
     [30, 150, 210, 330].forEach((deg) => { const a = (deg * PI) / 180; T.lamp(Math.cos(a) * 12.4, Math.sin(a) * 12.4); });
+    newsstand(-5.6, 7.4);
     T.npc = { x: 4.6, z: -6.6, ry: 0.3 };
     T.regions.push({ name: "Achievement Plaza", x: 0, z: 0, r: 13 });
+  }
+
+  /* Newsstand: the AI stories Nhi is tracking, from her NewsTrace project.
+     CONTENT.newsstand is written by tools/sync_universe.py (js/vault-data.js). */
+  function newsstand(x, z) {
+    const stories = ((CONTENT.newsstand || {}).stories || []).slice(0, 3);
+    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = Math.atan2(-x, -z); T.world.add(g);
+    const o = { parent: g };
+    T.box(0, 0.6, 0, 2.8, 1.2, 1.3, 0x2a9d8f, { ...o, r: 0.08 });
+    T.box(0, 1.24, 0.05, 2.95, 0.08, 1.45, 0xf4e9d4, o);
+    [-1.3, 1.3].forEach((px) => T.box(px, 2.5, -0.5, 0.14, 2.5, 0.14, 0xf4e9d4, o));
+    T.box(0, 3.8, -0.15, 3.3, 0.16, 1.9, 0xe76f51, { ...o, rx: 0.2 });
+    [0, 1, 2].forEach((i) => T.box(-0.75 + i * 0.04, 1.31 + i * 0.045, 0.25, 0.8, 0.04, 0.55, i % 2 ? 0xf2f2f2 : 0xffffff, o));
+    T.box(0.75, 1.31, 0.25, 0.8, 0.04, 0.55, 0xffe8a3, o);
+    const fit = (c, text, max) => { if (c.measureText(text).width <= max) return text; while (text.length > 1 && c.measureText(text + "…").width > max) text = text.slice(0, -1); return text.trimEnd() + "…"; };
+    const board = T.panel(0, 2.55, -0.42, 2.5, 1.9, (c, w, h) => {
+      c.fillStyle = "#fffaf0"; c.fillRect(0, 0, w, h);
+      c.fillStyle = "#264653"; c.fillRect(0, 0, w, h * 0.2);
+      c.fillStyle = "#fff"; c.font = `700 ${h * 0.11}px ${T.FONT}`; c.textBaseline = "middle"; c.textAlign = "center";
+      c.fillText("TODAY'S AI NEWS", w / 2, h * 0.105);
+      c.textAlign = "left";
+      if (!stories.length) { c.fillStyle = "#264653"; c.font = `600 ${h * 0.085}px ${T.FONT}`; c.fillText("Papers arrive soon!", w * 0.06, h * 0.55); return; }
+      stories.forEach((s, i) => {
+        const y = h * (0.3 + i * 0.25);
+        c.fillStyle = ["#e76f51", "#2a9d8f", "#e9c46a"][i]; c.beginPath(); c.arc(w * 0.06, y + h * 0.03, h * 0.035, 0, Math.PI * 2); c.fill();
+        c.fillStyle = "#1d2433"; c.font = `600 ${h * 0.075}px ${T.FONT}`; c.fillText(fit(c, s.title, w * 0.85), w * 0.11, y);
+        c.fillStyle = "#6c757d"; c.font = `600 ${h * 0.058}px ${T.FONT}`; c.fillText(`${s.domain} · ${s.sources} sources`, w * 0.11, y + h * 0.09);
+      });
+    }, { parent: g, px: 180 });
+    T.clickable(board, "newsstand");
+    T.solidCircle(x, z, 1.5);
+    T.interact("plaza-news", x + Math.sin(g.rotation.y) * 2, z + Math.cos(g.rotation.y) * 2, "Read today's AI news", "newsstand", null, 2.4);
   }
 
   /* ===================================================================== */
