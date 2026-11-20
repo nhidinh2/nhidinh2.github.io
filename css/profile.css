@@ -5,12 +5,13 @@
   --text: #e7e7e7;
   --muted: #c5c5c5;
   --line: #242424;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Shantell Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
   background: var(--background);
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--background); font-size: 20px; line-height: 1.5; }
+body { margin: 0; background: var(--background); font-size: 20px; line-height: 1.5; text-transform: lowercase; }
+.keep-case, #displayName { text-transform: none; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; color: inherit; }
 a { color: inherit; }

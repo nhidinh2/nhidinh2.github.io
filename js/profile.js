@@ -6,6 +6,29 @@
   const P = CONTENT.profile;
   const dialog = $("portfolioDialog");
 
+  // The page is styled all-lowercase; school and lab names keep their capitals.
+  const KEEP_CASE = [
+    "University of Illinois Urbana-Champaign", "University of Illinois Chicago",
+    "National Center for Supercomputing Applications", "Illinois Math Lab",
+    "UIUC", "UIC", "ICLUE", "NCSA"
+  ];
+  const keepCaseRe = new RegExp(`\\b(${KEEP_CASE.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`, "g");
+  function keepCase(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) if (!walker.currentNode.parentElement.closest(".keep-case")) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const parts = node.nodeValue.split(keepCaseRe);
+      if (parts.length < 2) return;
+      const frag = document.createDocumentFragment();
+      parts.forEach((part, i) => {
+        if (i % 2) { const span = document.createElement("span"); span.className = "keep-case"; span.textContent = part; frag.append(span); }
+        else if (part) frag.append(part);
+      });
+      node.replaceWith(frag);
+    });
+  }
+
   $("displayName").textContent = CONTENT.displayName || CONTENT.username;
   $("handle").textContent = P.handle;
   $("status").textContent = P.status;
@@ -18,6 +41,7 @@
     <p>${esc(bio.current).replace(esc(bio.program.name), programLink)}</p>
     <p>${esc(bio.education)} I am grateful I was able to be part of ${groupList} during my time there!</p>
     ${bio.research.map((p) => `<p>${esc(p)}</p>`).join("")}`;
+  keepCase(document.getElementById("main"));
 
   // contact row: LinkedIn, GitHub, Google Scholar, email (links without a URL are skipped)
   const contactIcons = {
@@ -73,6 +97,7 @@
   function showPortfolio(section) {
     $("dialogTitle").textContent = section === "research" ? "Publications" : section === "projects" ? "Coding Projects" : "Nhi's Portfolio";
     $("dialogContent").innerHTML = section === "research" ? research() : section === "projects" ? projects() : education() + research() + experience() + teaching() + talks() + projects() + skills();
+    keepCase(dialog);
     dialog.showModal();
     dialog.scrollTop = 0;
   }
